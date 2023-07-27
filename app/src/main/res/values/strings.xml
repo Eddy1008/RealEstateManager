@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_search">Search</string>
+
+    <string name="menu_geo_localisation">Localise me</string>
+    <string name="menu_text_me">Hello you !</string>
+    <string name="menu_listview">LISTVIEW</string>
+    <string name="menu_mapview">MAPVIEW</string>
 </resources>
