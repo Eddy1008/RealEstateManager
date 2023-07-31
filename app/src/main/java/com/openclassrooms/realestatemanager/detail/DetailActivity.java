@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.ActivityDetailBinding;
@@ -28,6 +29,7 @@ public class DetailActivity extends AppCompatActivity {
         detailViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(DetailViewModel.class);
 
         getInfoFromIntent();
+        setPreviousPageButton();
 
     }
 
@@ -37,5 +39,14 @@ public class DetailActivity extends AppCompatActivity {
         userName = (String) myBundle.get("USER_NAME");
         Log.d("TAG", "getInfoFromIntent: userName set in ViewModel = " + userName);
         detailViewModel.setMyUserName(userName);
+    }
+
+    void setPreviousPageButton() {
+        binding.detailActivityPreviousPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }
