@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding;
+import com.openclassrooms.realestatemanager.detail.DetailActivity;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -62,7 +64,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
                 // TODO
-                Toast.makeText(MainActivity.this, "Hello You !!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Hello You !!", Toast.LENGTH_SHORT).show();
+                String userName = "Eddy";
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                Bundle myBundle = new Bundle();
+                myBundle.putString("USER_NAME", userName);
+                intent.putExtra("BUNDLE_USER_NAME", myBundle);
+                startActivity(intent);
                 return false;
             }
         });

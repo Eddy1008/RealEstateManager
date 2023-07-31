@@ -12,4 +12,5 @@
     <string name="menu_text_me">Hello you !</string>
     <string name="menu_listview">LISTVIEW</string>
     <string name="menu_mapview">MAPVIEW</string>
+    <string name="menu_itemview">ITEMVIEW</string>
 </resources>
