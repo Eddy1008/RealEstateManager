@@ -10,10 +10,13 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding;
 import com.openclassrooms.realestatemanager.detail.DetailActivity;
+import com.openclassrooms.realestatemanager.detail.ui.itemtodetail.ItemFragment;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private AppBarConfiguration mAppBarConfiguration;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        mainViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(MainViewModel.class);
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
@@ -49,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
+        checkIfLandscape(savedInstanceState);
+
         // Set Localise Me Button !!
         binding.navView.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -64,16 +72,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
                 // TODO
-                //Toast.makeText(MainActivity.this, "Hello You !!", Toast.LENGTH_SHORT).show();
-                String userName = "Eddy";
-                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                Bundle myBundle = new Bundle();
-                myBundle.putString("USER_NAME", userName);
-                intent.putExtra("BUNDLE_USER_NAME", myBundle);
-                startActivity(intent);
+                Toast.makeText(MainActivity.this, "Hello you !", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
+    }
+
+    private void checkIfLandscape(Bundle savedInstanceState) {
+        if (binding.appBarMain.contentMain.mainActivityLandscapeDetailedItemView != null) {
+            /**
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().
+                        beginTransaction()
+                        .replace(binding.appBarMain.contentMain.mainActivityLandscapeDetailedItemView.getId(), new ItemFragment())
+                        .commit();
+            }
+             */
+            mainViewModel.setIsTwoPaneMode(true);
+        } else {
+            mainViewModel.setIsTwoPaneMode(false);
+        }
     }
 
     @Override

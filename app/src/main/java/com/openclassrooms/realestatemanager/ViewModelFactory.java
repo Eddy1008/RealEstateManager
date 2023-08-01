@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
+import com.openclassrooms.realestatemanager.main.MainViewModel;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
@@ -31,6 +32,11 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(DetailViewModel.class)) {
             return (T) new DetailViewModel();
         }
+
+        if (modelClass.isAssignableFrom(MainViewModel.class)) {
+            return (T) new MainViewModel();
+        }
+
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
 }

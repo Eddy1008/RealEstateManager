@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.openclassrooms.realestatemanager.ViewModelFactory;
@@ -17,7 +16,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private DetailViewModel detailViewModel;
 
-    private String userName;
+    private String itemInfo;
+    private String itemPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,11 @@ public class DetailActivity extends AppCompatActivity {
 
     void getInfoFromIntent() {
         Intent intent = getIntent();
-        Bundle myBundle = intent.getBundleExtra("BUNDLE_USER_NAME");
-        userName = (String) myBundle.get("USER_NAME");
-        Log.d("TAG", "getInfoFromIntent: userName set in ViewModel = " + userName);
-        detailViewModel.setMyUserName(userName);
+        Bundle myBundle = intent.getBundleExtra("BUNDLE_ITEM_TO_DETAIL");
+        itemInfo = (String) myBundle.get("ITEM_INFO");
+        itemPhoto = (String) myBundle.get("ITEM_PHOTO");
+        detailViewModel.setMyItemInfo(itemInfo);
+        detailViewModel.setMyItemPhoto(itemPhoto);
     }
 
     void setPreviousPageButton() {

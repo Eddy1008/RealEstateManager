@@ -6,14 +6,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".main.ui.listview.ListviewFragment">
 
-    <TextView
-        android:id="@+id/listview_fragment_textview_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="listview fragment"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listview_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="60dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        tools:context="listview.ListviewFragment"
+        tools:listitem="@layout/item_listview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

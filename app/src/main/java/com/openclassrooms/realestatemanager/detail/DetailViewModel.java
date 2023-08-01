@@ -9,12 +9,21 @@ public class DetailViewModel extends ViewModel {
     // Repository
 
     // Data
-    private final MutableLiveData<String> myUserName = new MutableLiveData<>();
-    public void setMyUserName(String userName) {
-        myUserName.setValue(userName);
+    private final MutableLiveData<String> myItemInfo = new MutableLiveData<>();
+    public void setMyItemInfo(String itemInfo) {
+        myItemInfo.setValue(itemInfo);
     }
-    public LiveData<String> getMyUserNameLiveData() {
-        return myUserName;
+    public LiveData<String> getMyItemInfoLiveData() {
+        return myItemInfo;
+    }
+
+
+    private final MutableLiveData<String> myItemPhoto = new MutableLiveData<>();
+    public void setMyItemPhoto(String itemPhoto) {
+        myItemPhoto.setValue(itemPhoto);
+    }
+    public LiveData<String> getMyItemPhotoLiveData() {
+        return myItemPhoto;
     }
 
 
