@@ -20,32 +20,44 @@ import com.openclassrooms.realestatemanager.detail.DetailActivity;
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
 import com.openclassrooms.realestatemanager.detail.ui.itemtodetail.ItemFragment;
 import com.openclassrooms.realestatemanager.model.MyItemTest;
+import com.openclassrooms.realestatemanager.model.Property;
+import com.openclassrooms.realestatemanager.model.PropertyType;
+
+import java.util.List;
 
 public class ListviewItemViewHolder extends RecyclerView.ViewHolder {
 
     private final ImageView itemPhoto;
-    private final TextView itemInfo;
+    private final TextView itemType;
+    private final TextView itemAddress;
+    private final TextView itemPrice;
 
     public ListviewItemViewHolder(@NonNull View itemView) {
         super(itemView);
         this.itemPhoto = itemView.findViewById(R.id.item_listview_photo);
-        this.itemInfo = itemView.findViewById(R.id.item_listview_textview);
+        this.itemType = itemView.findViewById(R.id.item_listview_textview_type);
+        this.itemAddress = itemView.findViewById(R.id.item_listview_textview_address);
+        this.itemPrice = itemView.findViewById(R.id.item_listview_textview_price);
     }
 
-    public void bind(MyItemTest myItemTest, boolean isTwoPane) {
-        if (myItemTest.getPhoto().equals("1")) {
-            Glide.with(this.itemPhoto.getContext())
-                    .load("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg")
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(itemPhoto);
-        } else {
-            Glide.with(this.itemPhoto.getContext())
-                    .load("https://cdn.pixabay.com/photo/2016/09/05/18/54/texture-1647380_960_720.jpg")
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(itemPhoto);
-        }
-        itemInfo.setText(myItemTest.getInfo());
+    public void bind(Property property, List<PropertyType> propertyTypeList, boolean isTwoPane) {
+        Glide.with(this.itemPhoto.getContext())
+                .load(property.getMainPhoto())
+                .apply(RequestOptions.circleCropTransform())
+                .into(itemPhoto);
 
+        // itemType.setText(String.valueOf(property.getPropertyTypeId()));
+        for (PropertyType propertyType : propertyTypeList) {
+            if (String.valueOf(propertyType.getId()).equals(String.valueOf(property.getPropertyTypeId()))) {
+                itemType.setText(propertyType.getName());
+            }
+        }
+
+        itemAddress.setText(property.getAddress());
+        String myItemPrice = "$" + property.getPropertyPrice();
+        itemPrice.setText(myItemPrice);
+
+        /**
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +73,7 @@ public class ListviewItemViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
+         */
     }
 
     private void showItemInFragment(MyItemTest myItemTest) {

@@ -17,6 +17,8 @@ import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.FragmentListviewBinding;
 import com.openclassrooms.realestatemanager.main.MainViewModel;
 import com.openclassrooms.realestatemanager.model.MyItemTest;
+import com.openclassrooms.realestatemanager.model.Property;
+import com.openclassrooms.realestatemanager.model.PropertyType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,9 @@ public class ListviewFragment extends Fragment {
     private ListviewAdapter adapter;
     private MainViewModel mainViewModel;
     private boolean isTwoPane;
-    private List<MyItemTest> myTestList = new ArrayList<>();
+    //TODO Wip
+    private List<Property> propertyList = new ArrayList<>();
+    private List<PropertyType> propertyTypeList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -44,41 +48,33 @@ public class ListviewFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
 
         mainViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(MainViewModel.class);
+        mainViewModel.initPropertyList();
+        mainViewModel.initPropertyTypeList();
 
         mainViewModel.getIsTwoPaneMode().observe(getViewLifecycleOwner(), aBoolean -> {
             isTwoPane = aBoolean;
-            adapter = new ListviewAdapter(myTestList, isTwoPane);
-            getMyItems();
+            adapter = new ListviewAdapter(propertyList, propertyTypeList, isTwoPane);
+            getMyPropertyTypeList();
+            getMyPropertyList();
         });
 
         return root;
     }
 
-    private void getMyItems() {
-        MyItemTest test0 = new MyItemTest("A test", "1");
-        MyItemTest test1 = new MyItemTest("B test", "2");
-        MyItemTest test2 = new MyItemTest("C test", "1");
-        MyItemTest test3 = new MyItemTest("D test", "2");
-        MyItemTest test4 = new MyItemTest("E test", "1");
-        MyItemTest test5 = new MyItemTest("F test", "2");
-        MyItemTest test6 = new MyItemTest("G test", "1");
-        MyItemTest test7 = new MyItemTest("H test", "2");
-        MyItemTest test8 = new MyItemTest("I test", "1");
-        MyItemTest test9 = new MyItemTest("J test", "2");
+    private void getMyPropertyTypeList() {
+        mainViewModel.getPropertyTypeList().observe(getViewLifecycleOwner(), propertyTypes -> {
+            propertyTypeList = new ArrayList<>(propertyTypes);
+            adapter.updatePropertyTypeList(propertyTypeList);
+        });
+    }
 
-        myTestList.add(test0);
-        myTestList.add(test1);
-        myTestList.add(test2);
-        myTestList.add(test3);
-        myTestList.add(test4);
-        myTestList.add(test5);
-        myTestList.add(test6);
-        myTestList.add(test7);
-        myTestList.add(test8);
-        myTestList.add(test9);
-
-        adapter.updateMyList(myTestList);
-        recyclerView.setAdapter(adapter);
+    private void getMyPropertyList() {
+        // TODO get the list
+        mainViewModel.getPropertyList().observe(getViewLifecycleOwner(), properties -> {
+            propertyList = new ArrayList<>(properties);
+            adapter.updateMyList(propertyList);
+            recyclerView.setAdapter(adapter);
+        });
     }
 
     @Override

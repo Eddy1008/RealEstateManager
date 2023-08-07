@@ -10,16 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.model.MyItemTest;
+import com.openclassrooms.realestatemanager.model.Property;
+import com.openclassrooms.realestatemanager.model.PropertyType;
 
 import java.util.List;
 
 public class ListviewAdapter extends RecyclerView.Adapter<ListviewItemViewHolder> {
 
-    private List<MyItemTest> myItemTestList;
+    private List<Property> propertyList;
+    private List<PropertyType> propertyTypeList;
     private boolean isTwoPane;
 
-    public ListviewAdapter(List<MyItemTest> myItemTestList, boolean isTwoPaneMode) {
-        this.myItemTestList = myItemTestList;
+    public ListviewAdapter(List<Property> propertyList, List<PropertyType> propertyTypeList, boolean isTwoPaneMode) {
+        this.propertyList = propertyList;
+        this.propertyTypeList = propertyTypeList;
         this.isTwoPane = isTwoPaneMode;
     }
 
@@ -34,16 +38,21 @@ public class ListviewAdapter extends RecyclerView.Adapter<ListviewItemViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListviewItemViewHolder holder, int position) {
-        holder.bind(myItemTestList.get(position), isTwoPane);
+        holder.bind(propertyList.get(position), propertyTypeList, isTwoPane);
     }
 
     @Override
     public int getItemCount() {
-        return myItemTestList.size();
+        return propertyList.size();
     }
 
-    public void updateMyList(List<MyItemTest> newList) {
-        this.myItemTestList = newList;
+    public void updateMyList(List<Property> newList) {
+        this.propertyList = newList;
+        this.notifyDataSetChanged();
+    }
+
+    public void updatePropertyTypeList(List<PropertyType> newPropertyTypeList) {
+        this.propertyTypeList = newPropertyTypeList;
         this.notifyDataSetChanged();
     }
 }

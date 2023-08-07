@@ -61,7 +61,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         }
 
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
-            return (T) new MainViewModel(propertyPhotoRepository, propertyRepository, propertyTypeRepository, executor);
+            return (T) new MainViewModel(propertyRepository, propertyTypeRepository, executor);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class");

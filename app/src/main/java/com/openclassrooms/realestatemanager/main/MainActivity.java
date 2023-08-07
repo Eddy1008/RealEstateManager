@@ -80,14 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkIfLandscape(Bundle savedInstanceState) {
         if (binding.appBarMain.contentMain.mainActivityLandscapeDetailedItemView != null) {
-            /**
-            if (savedInstanceState == null) {
-                getSupportFragmentManager().
-                        beginTransaction()
-                        .replace(binding.appBarMain.contentMain.mainActivityLandscapeDetailedItemView.getId(), new ItemFragment())
-                        .commit();
-            }
-             */
             mainViewModel.setIsTwoPaneMode(true);
         } else {
             mainViewModel.setIsTwoPaneMode(false);

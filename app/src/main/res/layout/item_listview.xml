@@ -7,21 +7,45 @@
 
     <ImageView
         android:id="@+id/item_listview_photo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="8dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/item_listview_photo" />
 
     <TextView
-        android:id="@+id/item_listview_textview"
+        android:id="@+id/item_listview_textview_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/item_listview_text_example"
+        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="@+id/item_listview_photo"
+        app:layout_constraintStart_toEndOf="@+id/item_listview_photo"/>
+
+    <TextView
+        android:id="@+id/item_listview_textview_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:text="@string/item_listview_text_example"
+        android:textStyle="italic"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/item_listview_textview_type"
+        app:layout_constraintBottom_toTopOf="@+id/item_listview_textview_price"
+        app:layout_constraintStart_toEndOf="@+id/item_listview_photo"/>
+
+    <TextView
+        android:id="@+id/item_listview_textview_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/item_listview_price_example"
+        android:textSize="40sp"
         app:layout_constraintStart_toEndOf="@+id/item_listview_photo"
         app:layout_constraintBottom_toBottomOf="@id/item_listview_photo" />
 

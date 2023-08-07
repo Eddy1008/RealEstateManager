@@ -15,6 +15,7 @@ public class Property {
     private long id;
     private String title;
     private String address;
+    private String mainPhoto;
     private String propertyDescription;
     private String onSaleDate;
     private String saleDealDate;
@@ -27,12 +28,13 @@ public class Property {
     private long propertySaleStatusId;
     private long realEstateAgentId;
 
-    public Property(String title, String address, String propertyDescription,
+    public Property(String title, String address,String mainPhoto, String propertyDescription,
                     String onSaleDate, String saleDealDate, int propertyPrice,
                     int propertySurface, int roomNumber, int bathroomNumber, int bedroomNumber,
                     long propertyTypeId, long propertySaleStatusId, long realEstateAgentId) {
         this.title = title;
         this.address = address;
+        this.mainPhoto = mainPhoto;
         this.propertyDescription = propertyDescription;
         this.onSaleDate = onSaleDate;
         this.saleDealDate = saleDealDate;
@@ -65,6 +67,13 @@ public class Property {
     }
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getMainPhoto() {
+        return mainPhoto;
+    }
+    public void setMainPhoto(String mainPhoto) {
+        this.mainPhoto = mainPhoto;
     }
 
     public String getPropertyDescription() {

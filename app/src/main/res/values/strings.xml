@@ -16,4 +16,5 @@
     <string name="detail_activity_previous_page">Previous page button</string>
     <string name="item_listview_photo">item picture</string>
     <string name="item_listview_text_example">This is an example</string>
+    <string name="item_listview_price_example">$30,000,000</string>
 </resources>
