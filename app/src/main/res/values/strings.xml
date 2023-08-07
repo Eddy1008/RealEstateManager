@@ -17,4 +17,18 @@
     <string name="item_listview_photo">item picture</string>
     <string name="item_listview_text_example">This is an example</string>
     <string name="item_listview_price_example">$30,000,000</string>
+    <string name="fragment_item_textview_media">Media</string>
+    <string name="fragment_item_textview_description">Ceci est un exemple de description pour une propriété a vendre via cette application! il se peut que ce paragrahpe soit tres important! Ceci est un exemple de description pour une propriété a vendre via cette application! il se peut que ce paragrahpe soit tres important! Ceci est un exemple de description pour une propriété a vendre via cette application! il se peut que ce paragrahpe soit tres important!</string>
+    <string name="fragment_item_textview_description_title">Description</string>
+    <string name="fragment_item_card_view_surface_title">Surface</string>
+    <string name="fragment_item_card_view_surface_value">350m²</string>
+    <string name="fragment_item_card_view_number_room_title">Number of rooms</string>
+    <string name="fragment_item_card_view_number_room">8</string>
+    <string name="fragment_item_card_view_number_bathroom_title">Number of bathrooms</string>
+    <string name="fragment_item_card_view_number_bathroom">2</string>
+    <string name="fragment_item_card_view_number_bedroom_title">Number of bedrooms</string>
+    <string name="fragment_item_card_view_number_bedroom">4</string>
+    <string name="fragment_item_card_view_location_title">Location</string>
+    <string name="fragment_item_card_view_location_value">123 boulevard des essais 59000 Lille</string>
+    <string name="fragment_item_title">ITEM_PROPERTY_TITLE</string>
 </resources>

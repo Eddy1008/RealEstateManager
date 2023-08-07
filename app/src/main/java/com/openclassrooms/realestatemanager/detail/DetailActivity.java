@@ -9,15 +9,13 @@ import android.view.View;
 
 import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.ActivityDetailBinding;
+import com.openclassrooms.realestatemanager.model.Property;
 
 public class DetailActivity extends AppCompatActivity {
 
     private ActivityDetailBinding binding;
 
     private DetailViewModel detailViewModel;
-
-    private String itemInfo;
-    private String itemPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +34,8 @@ public class DetailActivity extends AppCompatActivity {
     void getInfoFromIntent() {
         Intent intent = getIntent();
         Bundle myBundle = intent.getBundleExtra("BUNDLE_ITEM_TO_DETAIL");
-        itemInfo = (String) myBundle.get("ITEM_INFO");
-        itemPhoto = (String) myBundle.get("ITEM_PHOTO");
-        detailViewModel.setMyItemInfo(itemInfo);
-        detailViewModel.setMyItemPhoto(itemPhoto);
+        Property property = (Property) myBundle.get("PROPERTY_ITEM");
+        detailViewModel.setMyProperty(property);
     }
 
     void setPreviousPageButton() {

@@ -19,7 +19,6 @@ import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.detail.DetailActivity;
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
 import com.openclassrooms.realestatemanager.detail.ui.itemtodetail.ItemFragment;
-import com.openclassrooms.realestatemanager.model.MyItemTest;
 import com.openclassrooms.realestatemanager.model.Property;
 import com.openclassrooms.realestatemanager.model.PropertyType;
 
@@ -46,7 +45,6 @@ public class ListviewItemViewHolder extends RecyclerView.ViewHolder {
                 .apply(RequestOptions.circleCropTransform())
                 .into(itemPhoto);
 
-        // itemType.setText(String.valueOf(property.getPropertyTypeId()));
         for (PropertyType propertyType : propertyTypeList) {
             if (String.valueOf(propertyType.getId()).equals(String.valueOf(property.getPropertyTypeId()))) {
                 itemType.setText(propertyType.getName());
@@ -57,37 +55,30 @@ public class ListviewItemViewHolder extends RecyclerView.ViewHolder {
         String myItemPrice = "$" + property.getPropertyPrice();
         itemPrice.setText(myItemPrice);
 
-        /**
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isTwoPane) {
-                    showItemInFragment(myItemTest);
+                    showItemInFragment(property);
                 } else {
                     Intent intent = new Intent(view.getContext(), DetailActivity.class);
                     Bundle myBundle = new Bundle();
-                    myBundle.putString("ITEM_INFO", myItemTest.getInfo());
-                    myBundle.putString("ITEM_PHOTO", myItemTest.getPhoto());
+                    myBundle.putSerializable("PROPERTY_ITEM", property);
                     intent.putExtra("BUNDLE_ITEM_TO_DETAIL", myBundle);
                     view.getContext().startActivity(intent);
                 }
             }
         });
-         */
     }
 
-    private void showItemInFragment(MyItemTest myItemTest) {
-        String itemInfo = myItemTest.getInfo();
-        String itemPhoto = myItemTest.getPhoto();
-
+    private void showItemInFragment(Property property) {
         // Update the DetailViewModel with the selected item information.
         DetailViewModel detailViewModel = new ViewModelProvider((AppCompatActivity) itemView.getContext(), ViewModelFactory.getInstance(itemView.getContext())).get(DetailViewModel.class);
-        detailViewModel.setMyItemInfo(itemInfo);
-        detailViewModel.setMyItemPhoto(itemPhoto);
+        detailViewModel.setMyProperty(property);
 
         // Create an instance of the ItemFragment and set its arguments.
         FragmentManager fragmentManager = ((AppCompatActivity) itemView.getContext()).getSupportFragmentManager();
-        ItemFragment itemFragment = ItemFragment.newInstance(itemInfo, itemPhoto);
+        ItemFragment itemFragment = ItemFragment.newInstance(property);
 
         // Replace the content of the detailContainer with the ItemFragment.
         fragmentManager.beginTransaction()

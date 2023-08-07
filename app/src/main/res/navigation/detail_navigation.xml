@@ -9,6 +9,6 @@
         android:id="@+id/nav_detail"
         android:name="com.openclassrooms.realestatemanager.detail.ui.itemtodetail.ItemFragment"
         android:label="@string/menu_itemview"
-        tools:layout="@layout/fragment_item_to_detail" />
+        tools:layout="@layout/fragment_item" />
 
 </navigation>

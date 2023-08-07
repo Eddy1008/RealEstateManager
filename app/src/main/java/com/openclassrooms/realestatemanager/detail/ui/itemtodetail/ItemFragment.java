@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.detail.ui.itemtodetail;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,69 +11,54 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.realestatemanager.ViewModelFactory;
-import com.openclassrooms.realestatemanager.databinding.FragmentItemToDetailBinding;
+import com.openclassrooms.realestatemanager.databinding.FragmentItemBinding;
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
+import com.openclassrooms.realestatemanager.model.Property;
 
 public class ItemFragment extends Fragment {
 
-    private FragmentItemToDetailBinding binding;
-
+    private FragmentItemBinding binding;
     private DetailViewModel detailViewModel;
-
-    private String itemInfo;
-    private String itemPhoto;
+    private Property item;
 
     public ItemFragment() {
     }
 
-    public static ItemFragment newInstance(String itemInfo, String itemPhoto) {
+    public static ItemFragment newInstance(Property property) {
         ItemFragment fragment = new ItemFragment();
         Bundle args = new Bundle();
-        args.putString("ITEM_INFO", itemInfo);
-        args.putString("ITEM_PHOTO", itemPhoto);
+        args.putSerializable("PROPERTY_ITEM", property);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            itemInfo = getArguments().getString("ITEM_INFO");
-            itemPhoto = getArguments().getString("ITEM_PHOTO");
-        }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        binding = FragmentItemToDetailBinding.inflate(inflater, container, false);
+        binding = FragmentItemBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         detailViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(DetailViewModel.class);
 
-        detailViewModel.getMyItemInfoLiveData().observe(getViewLifecycleOwner(), string -> {
-            itemInfo = string;
-            String toDisplay = "Welcome to : " + itemInfo;
-            binding.itemFragmentTextviewTitle.setText(toDisplay);
-        });
+        detailViewModel.getMyProperty().observe(getViewLifecycleOwner(), property -> {
+            item = property;
+            binding.fragmentItemTitle.setText(item.getTitle());
+            Glide.with(binding.fragmentItemImageviewPhoto)
+                    .load(item.getMainPhoto())
+                    .into(binding.fragmentItemImageviewPhoto);
+            binding.fragmentItemTextviewDescription.setText(item.getPropertyDescription());
+            binding.fragmentItemCardViewSurface.setText(String.valueOf(item.getPropertySurface()));
+            binding.fragmentItemCardViewNumberRoom.setText(String.valueOf(item.getRoomNumber()));
+            binding.fragmentItemCardViewNumberBathroom.setText(String.valueOf(item.getBathroomNumber()));
+            binding.fragmentItemCardViewNumberBedroom.setText(String.valueOf(item.getBedroomNumber()));
+            binding.fragmentItemCardViewLocation.setText(item.getAddress());
 
-        detailViewModel.getMyItemPhotoLiveData().observe(getViewLifecycleOwner(), string -> {
-            itemPhoto = string;
-            if (itemPhoto.equals("1")) {
-                Glide.with(binding.itemFragmentImageviewPhoto)
-                        .load("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg")
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(binding.itemFragmentImageviewPhoto);
-            } else {
-                Glide.with(binding.itemFragmentImageviewPhoto)
-                        .load("https://cdn.pixabay.com/photo/2016/09/05/18/54/texture-1647380_960_720.jpg")
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(binding.itemFragmentImageviewPhoto);
-            }
+            // TODO Afficher la map miniature ...
+            Glide.with(binding.fragmentItemCardViewMiniMap)
+                    .load(item.getMainPhoto())
+                    .into(binding.fragmentItemCardViewMiniMap);
         });
 
         return root;

@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".detail.DetailActivity">
 
+    <fragment
+        android:id="@+id/nav_host_detail_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintTop_toBottomOf="@+id/detail_activity_previous_page_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:navGraph="@navigation/detail_navigation" />
+
     <ImageView
         android:id="@+id/detail_activity_previous_page_button"
         android:layout_width="wrap_content"
@@ -17,17 +29,5 @@
         android:focusable="true"
         android:src="@drawable/ic_baseline_arrow_back_24"
         android:contentDescription="@string/detail_activity_previous_page" />
-
-    <fragment
-        android:id="@+id/nav_host_detail_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:navGraph="@navigation/detail_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

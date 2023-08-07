@@ -53,15 +53,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--
-            <include
-                android:id="@+id/detail_container"
-                layout="@layout/fragment_item_to_detail"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-                -->
-
             <FrameLayout
                 android:id="@+id/detailContainer"
                 android:layout_width="0dp"

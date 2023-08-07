@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.openclassrooms.realestatemanager.model.Property;
 import com.openclassrooms.realestatemanager.repositories.PointOfInterestNearbyRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyPhotoRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyRepository;
@@ -41,22 +42,12 @@ public class DetailViewModel extends ViewModel {
     }
 
     // Data
-    private final MutableLiveData<String> myItemInfo = new MutableLiveData<>();
-    public void setMyItemInfo(String itemInfo) {
-        myItemInfo.setValue(itemInfo);
+    private final MutableLiveData<Property> myProperty = new MutableLiveData<>();
+    public void setMyProperty(Property property) {
+        myProperty.setValue(property);
     }
-    public LiveData<String> getMyItemInfoLiveData() {
-        return myItemInfo;
+    public LiveData<Property> getMyProperty() {
+        return this.myProperty;
     }
-
-
-    private final MutableLiveData<String> myItemPhoto = new MutableLiveData<>();
-    public void setMyItemPhoto(String itemPhoto) {
-        myItemPhoto.setValue(itemPhoto);
-    }
-    public LiveData<String> getMyItemPhotoLiveData() {
-        return myItemPhoto;
-    }
-
 
 }

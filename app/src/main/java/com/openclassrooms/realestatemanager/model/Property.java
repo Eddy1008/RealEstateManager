@@ -4,12 +4,14 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(foreignKeys = {
         @ForeignKey(entity = PropertyType.class, parentColumns = "id", childColumns = "propertyTypeId"),
         @ForeignKey(entity = PropertySaleStatus.class, parentColumns = "id", childColumns = "propertySaleStatusId"),
         @ForeignKey(entity = RealEstateAgent.class, parentColumns = "id", childColumns = "realEstateAgentId")
 })
-public class Property {
+public class Property implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
