@@ -26,7 +26,7 @@ public class DetailActivity extends AppCompatActivity {
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        detailViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(DetailViewModel.class);
+        detailViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(DetailViewModel.class);
 
         getInfoFromIntent();
         setPreviousPageButton();

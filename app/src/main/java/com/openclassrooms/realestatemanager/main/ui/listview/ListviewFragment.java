@@ -43,7 +43,7 @@ public class ListviewFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
 
-        mainViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance()).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(MainViewModel.class);
 
         mainViewModel.getIsTwoPaneMode().observe(getViewLifecycleOwner(), aBoolean -> {
             isTwoPane = aBoolean;

@@ -68,7 +68,7 @@ public class ListviewItemViewHolder extends RecyclerView.ViewHolder {
         String itemPhoto = myItemTest.getPhoto();
 
         // Update the DetailViewModel with the selected item information.
-        DetailViewModel detailViewModel = new ViewModelProvider((AppCompatActivity) itemView.getContext(), ViewModelFactory.getInstance()).get(DetailViewModel.class);
+        DetailViewModel detailViewModel = new ViewModelProvider((AppCompatActivity) itemView.getContext(), ViewModelFactory.getInstance(itemView.getContext())).get(DetailViewModel.class);
         detailViewModel.setMyItemInfo(itemInfo);
         detailViewModel.setMyItemPhoto(itemPhoto);
 

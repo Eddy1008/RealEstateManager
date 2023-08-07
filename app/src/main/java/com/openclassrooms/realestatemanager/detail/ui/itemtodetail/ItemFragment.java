@@ -54,7 +54,7 @@ public class ItemFragment extends Fragment {
         binding = FragmentItemToDetailBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        detailViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance()).get(DetailViewModel.class);
+        detailViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(DetailViewModel.class);
 
         detailViewModel.getMyItemInfoLiveData().observe(getViewLifecycleOwner(), string -> {
             itemInfo = string;
