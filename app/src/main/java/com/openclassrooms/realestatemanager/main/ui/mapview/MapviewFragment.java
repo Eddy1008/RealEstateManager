@@ -27,8 +27,10 @@ public class MapviewFragment extends Fragment implements OnMapReadyCallback {
 
     private MainViewModel mainViewModel;
     private FragmentMapviewBinding binding;
-    private boolean locationPermissionGranted;
 
+    // TODO ask Localisation Permission
+    /**
+    private boolean locationPermissionGranted;
     private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             new ActivityResultCallback<Boolean>() {
@@ -36,13 +38,14 @@ public class MapviewFragment extends Fragment implements OnMapReadyCallback {
                 public void onActivityResult(Boolean result) {
                     if (result) {
                         locationPermissionGranted = true;
-                        // TODO getDeviceLocation()
+                        // getDeviceLocation()
                     } else {
                         locationPermissionGranted = false;
                     }
                 }
             }
     );
+     */
 
     @Nullable
     @Override

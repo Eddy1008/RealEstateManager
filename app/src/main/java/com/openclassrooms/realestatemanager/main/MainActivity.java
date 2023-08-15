@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                // TODO
+                // TODO localise me button
                 Toast.makeText(MainActivity.this, "Will redirect to allow geo localisation activity !", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.getMenu().getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                // TODO
+                // TODO add a property
                 Toast.makeText(MainActivity.this, "Hello you !", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -94,13 +94,13 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                // TODO
+                // TODO research submit
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                // TODO
+                // TODO reseach text change
                 return false;
             }
         });

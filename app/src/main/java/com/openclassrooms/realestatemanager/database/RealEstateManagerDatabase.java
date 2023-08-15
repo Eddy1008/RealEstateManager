@@ -58,7 +58,7 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
             @Override
             public void onCreate(@NotNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
-                // TODO ... WIP
+                // TODO Prepopulate: Add photo and point of interest in database
                 // PROPERTY SALE  STATUS
                 Executors.newSingleThreadExecutor().execute(() -> INSTANCE.propertySaleStatusDAO().createPropertySaleStatus(
                         new PropertySaleStatus(1, "For sale")
@@ -88,11 +88,11 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
                 ));
                 // PROPERTY
                 Executors.newSingleThreadExecutor().execute(() -> INSTANCE.propertyDAO().createProperty(
-                        new Property("test 1", "123 wall street, New York","https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg", "BLABLA blablabla BLABLA blablabla BLABLA blablabla", "04/08/2023", "",
+                        new Property("test 1", "147 sentier de l'église 59320 hallennes-lez-haubourdin","https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg", "BLABLA blablabla BLABLA blablabla BLABLA blablabla", "04/08/2023", "",
                                 300000, 175, 10, 3, 3, 2, 1, 1)
                 ));
                 Executors.newSingleThreadExecutor().execute(() -> INSTANCE.propertyDAO().createProperty(
-                        new Property("test 2", "456 5th avenue, New York","https://cdn.pixabay.com/photo/2016/09/05/18/54/texture-1647380_960_720.jpg", "PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA", "02/08/2023", "",
+                        new Property("test 2", "48 rue de l'hirondelle 59320 hallennes-lez-haubourdin","https://cdn.pixabay.com/photo/2016/09/05/18/54/texture-1647380_960_720.jpg", "PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA", "02/08/2023", "",
                                 450000, 210, 8, 2, 4, 1, 1, 1)
                 ));
                 // PROPERTY PHOTO

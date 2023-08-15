@@ -32,7 +32,6 @@ public class ListviewFragment extends Fragment {
     private ListviewAdapter adapter;
     private MainViewModel mainViewModel;
     private boolean isTwoPane;
-    //TODO Wip
     private List<Property> propertyList = new ArrayList<>();
     private List<PropertyType> propertyTypeList = new ArrayList<>();
 
@@ -69,7 +68,6 @@ public class ListviewFragment extends Fragment {
     }
 
     private void getMyPropertyList() {
-        // TODO get the list
         mainViewModel.getPropertyList().observe(getViewLifecycleOwner(), properties -> {
             propertyList = new ArrayList<>(properties);
             adapter.updateMyList(propertyList);
