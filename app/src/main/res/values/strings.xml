@@ -45,4 +45,14 @@
     <string name="activity_add_property_textview_real_estate_agent">Select real estate agent:</string>
     <string name="activity_add_property_previous_page_button">Previous page button</string>
     <string name="menu_add_property">Add a property</string>
+    <string name="item_spinner_property_type">property type name</string>
+    <string name="item_spinner_real_estate_agent">Real estate agent name</string>
+    <string name="add_property_title_error">Please enter a title</string>
+    <string name="add_property_address_error">Invalid address</string>
+    <string name="add_property_description_error">Please describe the property here !</string>
+    <string name="add_property_surface_error">Please specify the surface</string>
+    <string name="add_property_room_error">Please specify the number of rooms</string>
+    <string name="add_property_bathroom_error">Please specify the number of bathrooms</string>
+    <string name="add_property_bedroom_error">Please specify the number of bedrooms</string>
+    <string name="add_property_price_error">Please specify the price !</string>
 </resources>
