@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.openclassrooms.realestatemanager.add.AddPropertyViewModel;
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
 import com.openclassrooms.realestatemanager.injection.Di;
 import com.openclassrooms.realestatemanager.main.MainViewModel;
@@ -58,6 +59,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(DetailViewModel.class)) {
             return (T) new DetailViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertySaleStatusRepository, propertyTypeRepository, realEstateAgentRepository, executor);
+        }
+
+        if (modelClass.isAssignableFrom(AddPropertyViewModel.class)) {
+            return (T) new AddPropertyViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertySaleStatusRepository, propertyTypeRepository, realEstateAgentRepository, executor);
         }
 
         if (modelClass.isAssignableFrom(MainViewModel.class)) {

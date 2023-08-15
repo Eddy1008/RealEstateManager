@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.ViewModelFactory;
+import com.openclassrooms.realestatemanager.add.AddPropertyActivity;
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding;
 import com.openclassrooms.realestatemanager.detail.DetailActivity;
 import com.openclassrooms.realestatemanager.detail.ui.itemtodetail.ItemFragment;
@@ -67,8 +68,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set Hello You Button !!
+        // Set Add Property Button !!
         binding.navView.getMenu().getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, AddPropertyActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
+        // Set Hello You Button !!
+        binding.navView.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
                 // TODO add a property

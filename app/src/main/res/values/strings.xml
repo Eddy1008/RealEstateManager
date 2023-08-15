@@ -31,4 +31,18 @@
     <string name="fragment_item_card_view_location_title">Location</string>
     <string name="fragment_item_card_view_location_value">123 boulevard des essais 59000 Lille</string>
     <string name="fragment_item_title">ITEM_PROPERTY_TITLE</string>
+    <string name="activity_add_property_textview_title">Add a Property</string>
+    <string name="activity_add_property_edittext_title">Enter a title</string>
+    <string name="activity_add_property_edittext_surface">Surface (m²)</string>
+    <string name="activity_add_property_edittext_room_number">Number of rooms</string>
+    <string name="activity_add_property_edittext_bathroom_number">Number of bathrooms</string>
+    <string name="activity_add_property_edittext_bedroom_number">Number of bedrooms</string>
+    <string name="activity_add_property_edittext_address">Address</string>
+    <string name="activity_add_property_edittext_price">Price ($)</string>
+    <string name="activity_add_property_button_add">ADD</string>
+    <string name="activity_add_property_edittext_description">Description</string>
+    <string name="activity_add_property_textview_property_type">Select property type:</string>
+    <string name="activity_add_property_textview_real_estate_agent">Select real estate agent:</string>
+    <string name="activity_add_property_previous_page_button">Previous page button</string>
+    <string name="menu_add_property">Add a property</string>
 </resources>
