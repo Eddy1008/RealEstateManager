@@ -1,10 +1,9 @@
 package com.openclassrooms.realestatemanager.add;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
 import com.openclassrooms.realestatemanager.model.PropertyType;
 import com.openclassrooms.realestatemanager.model.RealEstateAgent;
@@ -32,7 +31,6 @@ public class AddPropertyViewModel extends ViewModel {
     // DATA
     private LiveData<List<PropertyType>> propertyTypeList;
     private LiveData<List<RealEstateAgent>> realEstateAgentList;
-    private LiveData<List<Property>> propertyList;
 
     public AddPropertyViewModel(PointOfInterestNearbyRepository pointOfInterestNearbyRepository,
                                 PropertyPhotoRepository propertyPhotoRepository,
@@ -84,8 +82,17 @@ public class AddPropertyViewModel extends ViewModel {
     // ******* PROPERTY *******
     // ************************
 
-    public void addProperty(Property property) {
-        executor.execute(() -> propertyRepository.createProperty(property));
+    public LiveData<Long> insertPropertyAndGetId(Property property) {
+        return propertyRepository.createProperty(property);
+    }
+
+
+    // *********************************
+    // ******* POINT OF INTEREST *******
+    // *********************************
+
+    public void addPointOfInterest(PointOfInterestNearby pointOfInterestNearby){
+        executor.execute(() -> pointOfInterestNearbyRepository.createPointOfInterest(pointOfInterestNearby));
     }
 
 }

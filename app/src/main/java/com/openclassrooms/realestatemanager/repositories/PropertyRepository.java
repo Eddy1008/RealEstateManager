@@ -1,11 +1,13 @@
 package com.openclassrooms.realestatemanager.repositories;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.openclassrooms.realestatemanager.database.dao.PropertyDAO;
 import com.openclassrooms.realestatemanager.model.Property;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class PropertyRepository {
 
@@ -16,8 +18,13 @@ public class PropertyRepository {
     }
 
     // C
-    public void createProperty(Property property) {
-        this.propertyDAO.createProperty(property);
+    public LiveData<Long> createProperty(Property property) {
+        MutableLiveData<Long> insertedPropertyId = new MutableLiveData<>();
+        Executors.newSingleThreadExecutor().execute(() -> {
+            long id = propertyDAO.createProperty(property);
+            insertedPropertyId.postValue(id);
+        });
+        return insertedPropertyId;
     }
 
     // R

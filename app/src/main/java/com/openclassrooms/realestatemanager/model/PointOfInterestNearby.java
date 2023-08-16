@@ -2,22 +2,28 @@ package com.openclassrooms.realestatemanager.model;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = @ForeignKey(entity = Property.class, parentColumns = "id", childColumns = "propertyId"))
 public class PointOfInterestNearby {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
-    private String linkUrl;
+    private String address;
     private long propertyId;
 
-    public PointOfInterestNearby(long id, String name, String linkUrl, long propertyId) {
-        this.id = id;
+    public PointOfInterestNearby(String name, String address, long propertyId) {
         this.name = name;
-        this.linkUrl = linkUrl;
+        this.address = address;
         this.propertyId = propertyId;
+    }
+
+    @Ignore
+    public PointOfInterestNearby(String name, String address) {
+        this.name = name;
+        this.address = address;
     }
 
     public long getId() {
@@ -34,11 +40,11 @@ public class PointOfInterestNearby {
         this.name = name;
     }
 
-    public String getLinkUrl() {
-        return linkUrl;
+    public String getAddress() {
+        return address;
     }
-    public void setLinkUrl(String linkUrl) {
-        this.linkUrl = linkUrl;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public long getPropertyId() {

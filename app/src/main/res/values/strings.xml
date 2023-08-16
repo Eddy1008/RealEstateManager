@@ -55,4 +55,16 @@
     <string name="add_property_bathroom_error">Please specify the number of bathrooms</string>
     <string name="add_property_bedroom_error">Please specify the number of bedrooms</string>
     <string name="add_property_price_error">Please specify the price !</string>
+    <string name="activity_add_property_button_add_picture">ADD A PHOTO</string>
+    <string name="activity_add_property_button_add_point_of_interest">ADD POINT OF INTEREST</string>
+    <string name="activity_add_property_item_point_of_interest_example">this is a point of interest</string>
+    <string name="dialog_point_of_interest_name">name</string>
+    <string name="dialog_point_of_interest_address">Address</string>
+    <string name="dialog_title">Add a point of interest</string>
+    <string name="dialog_add_button">ADD</string>
+    <string name="dialog_point_of_interest_name_error">Please enter a name</string>
+    <string name="dialog_point_of_interest_address_error">Please enter an address</string>
+    <string name="fragment_item_card_view_point_of_interest_title">Point(s) of interest :</string>
+    <string name="item_point_of_interest_name">Point of interest name</string>
+    <string name="item_point_of_interest_address">123 rue des test 59000 LaMatrice</string>
 </resources>

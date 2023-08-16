@@ -24,7 +24,7 @@ public class PointOfInterestNearbyRepository {
     public LiveData<List<PointOfInterestNearby>> getPointOfInterestNearbyList() {
         return this.pointOfInterestNearbyDAO.getPointOfInterestList();
     }
-    public LiveData<List<PointOfInterestNearby>> getPointOfInterestNearbyByPropertyIdList(String propertyId) {
+    public LiveData<List<PointOfInterestNearby>> getPointOfInterestNearbyByPropertyIdList(long propertyId) {
         return this.pointOfInterestNearbyDAO.getPointOfInterestByPropertyId(propertyId);
     }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
 import com.openclassrooms.realestatemanager.repositories.PointOfInterestNearbyRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyPhotoRepository;
@@ -12,6 +13,7 @@ import com.openclassrooms.realestatemanager.repositories.PropertySaleStatusRepos
 import com.openclassrooms.realestatemanager.repositories.PropertyTypeRepository;
 import com.openclassrooms.realestatemanager.repositories.RealEstateAgentRepository;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 public class DetailViewModel extends ViewModel {
@@ -24,6 +26,9 @@ public class DetailViewModel extends ViewModel {
     private final PropertyTypeRepository propertyTypeRepository;
     private final RealEstateAgentRepository realEstateAgentRepository;
     private final Executor executor;
+
+    // DATA
+    private LiveData<List<PointOfInterestNearby>> pointOfInterestList;
 
     public DetailViewModel(PointOfInterestNearbyRepository pointOfInterestNearbyRepository,
                            PropertyPhotoRepository propertyPhotoRepository,
@@ -48,6 +53,21 @@ public class DetailViewModel extends ViewModel {
     }
     public LiveData<Property> getMyProperty() {
         return this.myProperty;
+    }
+
+    // *********************************
+    // ******* POINT OF INTEREST *******
+    // *********************************
+
+    public void initPointOfInterestListByPropertyId(long propertyId) {
+        if (this.pointOfInterestList != null) {
+            return;
+        }
+        pointOfInterestList = pointOfInterestNearbyRepository.getPointOfInterestNearbyByPropertyIdList(propertyId);
+    }
+
+    public LiveData<List<PointOfInterestNearby>> getPointOfInterestListByPropertyId() {
+        return this.pointOfInterestList;
     }
 
 }

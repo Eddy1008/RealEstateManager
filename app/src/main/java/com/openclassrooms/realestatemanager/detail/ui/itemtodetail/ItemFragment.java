@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.detail.ui.itemtodetail;
 
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,20 +12,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.realestatemanager.BuildConfig;
 import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.FragmentItemBinding;
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
+import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFragment extends Fragment {
 
     private FragmentItemBinding binding;
     private DetailViewModel detailViewModel;
+    private RecyclerView recyclerView;
+    private PointOfInterestAdapter pointOfInterestAdapter;
+    private List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
     private Property item;
     private String propertyLat;
     private String propertyLng;
@@ -51,9 +58,16 @@ public class ItemFragment extends Fragment {
 
         detailViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(DetailViewModel.class);
 
+        getMyProperty();
+
+        return root;
+    }
+
+    private void getMyProperty() {
         detailViewModel.getMyProperty().observe(getViewLifecycleOwner(), property -> {
             item = property;
-            binding.fragmentItemTitle.setText(item.getTitle());
+            String title = item.getTitle() + " id = " + item.getId();
+            binding.fragmentItemTitle.setText(title);
             Glide.with(binding.fragmentItemImageviewPhoto)
                     .load(item.getMainPhoto())
                     .into(binding.fragmentItemImageviewPhoto);
@@ -76,10 +90,24 @@ public class ItemFragment extends Fragment {
             Glide.with(binding.fragmentItemCardViewMiniMap)
                     .load(myUri)
                     .into(binding.fragmentItemCardViewMiniMap);
-        });
 
-        return root;
+            detailViewModel.initPointOfInterestListByPropertyId(item.getId());
+            configurePointOfInterestRecyclerView();
+        });
     }
+
+    private void configurePointOfInterestRecyclerView() {
+        recyclerView = binding.fragmentItemPointOfInterestRecyclerview;
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        detailViewModel.getPointOfInterestListByPropertyId().observe(getViewLifecycleOwner(), pointOfInterestNearbies -> {
+            pointOfInterestList = pointOfInterestNearbies;
+            Log.d("TAG", "configurePointOfInterestRecyclerView: pointOfInterestList.size() = " + pointOfInterestList.size());
+            pointOfInterestAdapter = new PointOfInterestAdapter(pointOfInterestList);
+            recyclerView.setAdapter(pointOfInterestAdapter);
+        });
+    }
+
 
     public void convertAddressToLatLng(String address) {
         if (address != null && !address.isEmpty()) {

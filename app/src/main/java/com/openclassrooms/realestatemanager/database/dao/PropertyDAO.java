@@ -14,7 +14,7 @@ import java.util.List;
 public interface PropertyDAO {
     // C
     @Insert
-    void createProperty(Property property);
+    long createProperty(Property property);
 
     // R
     @Query("SELECT * FROM Property")

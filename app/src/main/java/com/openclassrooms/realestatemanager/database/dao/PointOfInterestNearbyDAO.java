@@ -21,7 +21,7 @@ public interface PointOfInterestNearbyDAO {
     @Query("SELECT * FROM PointOfInterestNearby")
     LiveData<List<PointOfInterestNearby>> getPointOfInterestList();
     @Query("SELECT * FROM PointOfInterestNearby WHERE propertyId = :propertyId")
-    LiveData<List<PointOfInterestNearby>> getPointOfInterestByPropertyId(String propertyId);
+    LiveData<List<PointOfInterestNearby>> getPointOfInterestByPropertyId(long propertyId);
 
     // U
     @Update
