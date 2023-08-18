@@ -2,22 +2,28 @@ package com.openclassrooms.realestatemanager.model;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = @ForeignKey(entity = Property.class, parentColumns = "id", childColumns = "propertyId"))
 public class PropertyPhoto {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String photoUrl;
     private String photoDescription;
     private long propertyId;
 
-    public PropertyPhoto(long id, String photoUrl, String photoDescription, long propertyId) {
-        this.id = id;
+    public PropertyPhoto(String photoUrl, String photoDescription, long propertyId) {
         this.photoUrl = photoUrl;
         this.photoDescription = photoDescription;
         this.propertyId = propertyId;
+    }
+
+    @Ignore
+    public PropertyPhoto(String photoUrl, String photoDescription) {
+        this.photoUrl = photoUrl;
+        this.photoDescription = photoDescription;
     }
 
     public long getId() {

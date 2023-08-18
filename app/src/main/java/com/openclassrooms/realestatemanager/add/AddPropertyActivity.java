@@ -1,8 +1,11 @@
 package com.openclassrooms.realestatemanager.add;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -10,12 +13,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.openclassrooms.realestatemanager.R;
@@ -23,9 +33,12 @@ import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding;
 import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
+import com.openclassrooms.realestatemanager.model.PropertyPhoto;
 import com.openclassrooms.realestatemanager.model.PropertyType;
 import com.openclassrooms.realestatemanager.model.RealEstateAgent;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,40 +46,52 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
-public class AddPropertyActivity extends AppCompatActivity implements PointOfInterestAdapter.DeletePointOfInterestListener {
+public class AddPropertyActivity extends AppCompatActivity implements PointOfInterestAdapter.DeletePointOfInterestListener, PropertyPhotoAdapter.DeletePropertyPhotoListener {
 
     private ActivityAddPropertyBinding binding;
 
     private AddPropertyViewModel addPropertyViewModel;
 
-    private RecyclerView recyclerView;
     private PointOfInterestAdapter adapter;
+    private PropertyPhotoAdapter propertyPhotoAdapter;
 
     private List<PropertyType> propertyTypeList;
     private PropertyType propertyType;
     private List<RealEstateAgent> realEstateAgentList;
     private RealEstateAgent realEstateAgent;
-    private List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
+    private final List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
+    private final List<PropertyPhoto> propertyPhotoList = new ArrayList<>();
+
+    public static final int CAMERA_ACTION_CODE = 12;
+    public static final int PICK_ACTION_CODE = 13;
+    private static final int REQUEST_CAMERA_PERMISSION = 101;
+
+    /**
+     * Dialog to create a new property photo
+     */
+    @Nullable
+    public AlertDialog propertyPhotoDialog = null;
+    @Nullable
+    private Button dialogPropertyPhotoTakePictureButton = null;
+    @Nullable
+    private Button dialogPropertyPhotoSelectPictureButton = null;
+    @Nullable
+    private EditText dialogPropertyPhotoEditTextDescription = null;
+    @Nullable
+    private ImageView dialogPropertyPhotoImageViewPicture = null;
+    @Nullable
+    private PropertyPhoto pictureToAdd = null;
 
     /**
      * Dialog to create a new point of interest
      */
     @Nullable
-    public AlertDialog dialog = null;
-
-    /**
-     * EditText that allows user to set the name of a point of interest
-     */
+    public AlertDialog pointOfInterestDialog = null;
     @Nullable
-    private EditText dialogEditTextName = null;
-
-    /**
-     * EditText that allows user to set the address of a point of interest
-     */
+    private EditText dialogPointOfInterestEditTextName = null;
     @Nullable
-    private EditText dialogEditTextAddress = null;
+    private EditText dialogPointOfInterestEditTextAddress = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +104,12 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
         addPropertyViewModel.initPropertyTypeList();
         addPropertyViewModel.initRealEstateAgentList();
 
-        setPreviousPageButton();
+        configurePropertyPhotoRecyclerView();
         configurePropertyTypeSpinner();
         configureRealEstateAgentSpinner();
         configurePointOfInterestRecyclerView();
+
+        setPreviousPageButton();
         setAddPictureButton();
         setAddPointOfInterestButton();
         setAddPropertyButton();
@@ -96,6 +123,10 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
             }
         });
     }
+
+    // *****************************
+    // ******* PROPERTY TYPE *******
+    // *****************************
 
     private void configurePropertyTypeSpinner() {
         addPropertyViewModel.getPropertyTypeList().observe(this, propertyTypes -> {
@@ -116,6 +147,10 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
         });
     }
 
+    // *********************************
+    // ******* REAL ESTATE AGENT *******
+    // *********************************
+
     private void configureRealEstateAgentSpinner() {
         addPropertyViewModel.getRealEstateAgentList().observe(this, realEstateAgents -> {
             realEstateAgentList = realEstateAgents;
@@ -135,29 +170,211 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
         });
     }
 
-    private void configurePointOfInterestRecyclerView() {
-        recyclerView = binding.activityAddPropertyPointOfInterestRecyclerview;
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        adapter = new PointOfInterestAdapter(pointOfInterestList, this);
-        recyclerView.setAdapter(adapter);
+    // ******************************
+    // ******* PROPERTY PHOTO *******
+    // ******************************
+
+    // TODO BUG RECYCLER VERTICAL !
+    private void configurePropertyPhotoRecyclerView() {
+        RecyclerView pictureRecyclerView = binding.activityAddPropertyPictureRecyclerview;
+        pictureRecyclerView.setLayoutManager(new LinearLayoutManager(pictureRecyclerView.getContext()));
+        pictureRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        propertyPhotoAdapter = new PropertyPhotoAdapter(propertyPhotoList, this);
+        pictureRecyclerView.setAdapter(propertyPhotoAdapter);
     }
 
     private void setAddPictureButton() {
         binding.activityAddPropertyAddPictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO allow to add picture
-                Toast.makeText(AddPropertyActivity.this, "Will allow to add picture", Toast.LENGTH_SHORT).show();
+                showAddPropertyPhotoDialog();
             }
         });
+    }
+
+    private void showAddPropertyPhotoDialog() {
+        final AlertDialog photoDialog = getAddPropertyPhotoDialog();
+        photoDialog.show();
+        dialogPropertyPhotoImageViewPicture = photoDialog.findViewById(R.id.dialog_property_photo_picture);
+        dialogPropertyPhotoTakePictureButton = photoDialog.findViewById(R.id.dialog_property_photo_take_button);
+        dialogPropertyPhotoSelectPictureButton = photoDialog.findViewById(R.id.dialog_property_photo_select_button);
+        dialogPropertyPhotoEditTextDescription = photoDialog.findViewById(R.id.dialog_property_photo_description_edittext);
+
+        dialogPropertyPhotoTakePictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkCameraPermission()) {
+                    takePictureIntent();
+                }
+            }
+        });
+
+        dialogPropertyPhotoSelectPictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectPictureIntent();
+            }
+        });
+    }
+
+    private AlertDialog getAddPropertyPhotoDialog() {
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this, R.style.Dialog);
+
+        alertBuilder.setTitle(getString(R.string.dialog_photo_title));
+        alertBuilder.setView(R.layout.dialog_add_property_photo);
+        alertBuilder.setPositiveButton(getString(R.string.dialog_add_picture_button), null);
+        alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                dialogPropertyPhotoImageViewPicture = null;
+                dialogPropertyPhotoTakePictureButton = null;
+                dialogPropertyPhotoSelectPictureButton = null;
+                dialogPropertyPhotoEditTextDescription = null;
+                propertyPhotoDialog = null;
+                pictureToAdd = null;
+            }
+        });
+
+        propertyPhotoDialog = alertBuilder.create();
+
+        propertyPhotoDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Button button = propertyPhotoDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onPropertyPhotoPositiveButtonClick(propertyPhotoDialog);
+                    }
+                });
+            }
+        });
+
+        return propertyPhotoDialog;
+    }
+
+    private void onPropertyPhotoPositiveButtonClick(DialogInterface dialogInterface) {
+        if (dialogPropertyPhotoEditTextDescription != null) {
+            String propertyPhotoDescription = dialogPropertyPhotoEditTextDescription.getText().toString();
+            if (propertyPhotoDescription.trim().isEmpty()) {
+                dialogPropertyPhotoEditTextDescription.setError(getString(R.string.dialog_property_photo_description_error));
+            } else if (pictureToAdd == null) {
+                Toast.makeText(this, "Please take or select a photo !", Toast.LENGTH_SHORT).show();
+            } else {
+                pictureToAdd.setPhotoDescription(dialogPropertyPhotoEditTextDescription.getText().toString());
+                addPropertyPhoto(pictureToAdd);
+                dialogInterface.dismiss();
+            }
+        } else {
+            dialogInterface.dismiss();
+        }
+    }
+
+    private boolean checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.CAMERA},
+                    REQUEST_CAMERA_PERMISSION);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                takePictureIntent();
+            } else {
+                Toast.makeText(this, "You didn't allow the app to take pictures !", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void takePictureIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, CAMERA_ACTION_CODE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_ACTION_CODE && resultCode == RESULT_OK && data != null) {
+            Bundle bundle = data.getExtras();
+            Bitmap imageToSave = (Bitmap) bundle.get("data");
+
+            if (dialogPropertyPhotoImageViewPicture != null) {
+                dialogPropertyPhotoImageViewPicture.setImageBitmap(imageToSave);
+            }
+
+            String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date());
+            String fileName = "REM_picture_" + timeStamp + ".jpg";
+            createDirectoryAndSaveFile(imageToSave,fileName);
+        }
+
+        if (requestCode == PICK_ACTION_CODE && resultCode == RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+
+            if (dialogPropertyPhotoImageViewPicture != null) {
+                dialogPropertyPhotoImageViewPicture.setImageURI(selectedImageUri);
+            }
+            String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date());
+            String fileName = "REM_picture_" + timeStamp + ".jpg";
+            pictureToAdd = new PropertyPhoto(selectedImageUri.toString(), fileName);
+
+        }
+    }
+
+    private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {
+        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File pictureFile = new File(directory, fileName);
+        try {
+            FileOutputStream outputStream = new FileOutputStream(pictureFile);
+            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (Exception e) {
+            Log.e("TAG", "createDirectoryAndSaveFile: " + e.getMessage(), e );
+        }
+        pictureToAdd = new PropertyPhoto(pictureFile.getAbsolutePath(), fileName);
+    }
+
+    private void selectPictureIntent() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_ACTION_CODE);
+    }
+
+    private void addPropertyPhoto(PropertyPhoto propertyPhoto) {
+        propertyPhotoList.add(propertyPhoto);
+        propertyPhotoAdapter.updatePropertyPhotoList(propertyPhotoList);
+    }
+
+    @Override
+    public void onDeletePropertyPhoto(PropertyPhoto propertyPhoto) {
+        propertyPhotoList.remove(propertyPhoto);
+        propertyPhotoAdapter.updatePropertyPhotoList(propertyPhotoList);
+    }
+
+    // *********************************
+    // ******* POINT OF INTEREST *******
+    // *********************************
+
+    private void configurePointOfInterestRecyclerView() {
+        RecyclerView recyclerView = binding.activityAddPropertyPointOfInterestRecyclerview;
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        adapter = new PointOfInterestAdapter(pointOfInterestList, this);
+        recyclerView.setAdapter(adapter);
     }
 
     private void setAddPointOfInterestButton() {
         binding.activityAddPropertyAddPointOfInterestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO allow to add point of interest
                 showAddPointOfInterestDialog();
             }
         });
@@ -166,8 +383,8 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
     private void showAddPointOfInterestDialog() {
         final AlertDialog dialog = getAddPointOfInterestDialog();
         dialog.show();
-        dialogEditTextName = dialog.findViewById(R.id.dialog_edittext_name);
-        dialogEditTextAddress = dialog.findViewById(R.id.dialog_edittext_address);
+        dialogPointOfInterestEditTextName = dialog.findViewById(R.id.dialog_edittext_name);
+        dialogPointOfInterestEditTextAddress = dialog.findViewById(R.id.dialog_edittext_address);
     }
 
     private AlertDialog getAddPointOfInterestDialog() {
@@ -179,39 +396,39 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
         alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                dialogEditTextName = null;
-                dialogEditTextAddress = null;
-                dialog = null;
+                dialogPointOfInterestEditTextName = null;
+                dialogPointOfInterestEditTextAddress = null;
+                pointOfInterestDialog = null;
             }
         });
 
-        dialog = alertBuilder.create();
+        pointOfInterestDialog = alertBuilder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        pointOfInterestDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                Button button = pointOfInterestDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        onPositiveButtonClick(dialog);
+                        onPointOfInterestPositiveButtonClick(pointOfInterestDialog);
                     }
                 });
             }
         });
 
-        return dialog;
+        return pointOfInterestDialog;
     }
 
-    private void onPositiveButtonClick(DialogInterface dialogInterface) {
-        if (dialogEditTextName != null && dialogEditTextAddress != null) {
-            String pointOfInterestName = dialogEditTextName.getText().toString();
-            String pointOfInterestAddress = dialogEditTextAddress.getText().toString();
+    private void onPointOfInterestPositiveButtonClick(DialogInterface dialogInterface) {
+        if (dialogPointOfInterestEditTextName != null && dialogPointOfInterestEditTextAddress != null) {
+            String pointOfInterestName = dialogPointOfInterestEditTextName.getText().toString();
+            String pointOfInterestAddress = dialogPointOfInterestEditTextAddress.getText().toString();
 
             if (pointOfInterestName.trim().isEmpty()) {
-                dialogEditTextName.setError(getString(R.string.dialog_point_of_interest_name_error));
+                dialogPointOfInterestEditTextName.setError(getString(R.string.dialog_point_of_interest_name_error));
             } else if (pointOfInterestAddress.trim().isEmpty()) {
-                dialogEditTextAddress.setError(getString(R.string.dialog_point_of_interest_address_error));
+                dialogPointOfInterestEditTextAddress.setError(getString(R.string.dialog_point_of_interest_address_error));
             } else {
                 PointOfInterestNearby newPointOfInterest = new PointOfInterestNearby(pointOfInterestName, pointOfInterestAddress);
                 addPointOfInterest(newPointOfInterest);
@@ -225,15 +442,17 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
     private void addPointOfInterest(PointOfInterestNearby pointOfInterestNearby) {
         pointOfInterestList.add(pointOfInterestNearby);
         adapter.updatePointOfInterestList(pointOfInterestList);
-        Log.d("TAG", "addPointOfInterest: pointOfInterestList.size() = " + pointOfInterestList.size());
     }
 
     @Override
     public void onDeletePointOfInterest(PointOfInterestNearby pointOfInterest) {
         pointOfInterestList.remove(pointOfInterest);
         adapter.updatePointOfInterestList(pointOfInterestList);
-        Log.d("TAG", "onDeletePointOfInterest: pointOfInterestList.size() = " + pointOfInterestList.size());
     }
+
+    // ************************
+    // ******* PROPERTY *******
+    // ************************
 
     private void setAddPropertyButton() {
         binding.activityAddPropertyAddButton.setOnClickListener(new View.OnClickListener() {
@@ -262,7 +481,7 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
                             binding.activityAddPropertyEdittextAddress.getText().toString(),
                             "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg",
                             binding.activityAddPropertyEditTextMultilineDescription.getText().toString(),
-                            getOnSaleDate(),
+                            getDate(),
                             "",
                             Integer.parseInt(binding.activityAddPropertyEdittextPrice.getText().toString()),
                             Integer.parseInt(binding.activityAddPropertyEdittextSurface.getText().toString()),
@@ -281,6 +500,10 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
                                 PointOfInterestNearby newPoint = new PointOfInterestNearby(point.getName(), point.getAddress(), insertedId);
                                 addPropertyViewModel.addPointOfInterest(newPoint);
                             }
+                            for (PropertyPhoto photo : propertyPhotoList) {
+                                PropertyPhoto newPhoto = new PropertyPhoto(photo.getPhotoUrl(), photo.getPhotoDescription(), insertedId);
+                                addPropertyViewModel.addPropertyPhoto(newPhoto);
+                            }
                             finish();
                         }
                     });
@@ -289,7 +512,7 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
         });
     }
 
-    private String getOnSaleDate() {
+    private String getDate() {
         String datePattern = "dd/MM/yyyy HH:mm:ss";
         DateFormat dateFormat = new SimpleDateFormat(datePattern, Locale.getDefault());
         Date now = Calendar.getInstance().getTime();

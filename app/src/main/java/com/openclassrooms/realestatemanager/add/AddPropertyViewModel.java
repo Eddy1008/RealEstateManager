@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
+import com.openclassrooms.realestatemanager.model.PropertyPhoto;
 import com.openclassrooms.realestatemanager.model.PropertyType;
 import com.openclassrooms.realestatemanager.model.RealEstateAgent;
 import com.openclassrooms.realestatemanager.repositories.PointOfInterestNearbyRepository;
@@ -91,8 +92,16 @@ public class AddPropertyViewModel extends ViewModel {
     // ******* POINT OF INTEREST *******
     // *********************************
 
-    public void addPointOfInterest(PointOfInterestNearby pointOfInterestNearby){
+    public void addPointOfInterest(PointOfInterestNearby pointOfInterestNearby) {
         executor.execute(() -> pointOfInterestNearbyRepository.createPointOfInterest(pointOfInterestNearby));
+    }
+
+    // ******************************
+    // ******* PROPERTY PHOTO *******
+    // ******************************
+
+    public void addPropertyPhoto(PropertyPhoto propertyPhoto) {
+        executor.execute(() -> propertyPhotoRepository.createPropertyPhoto(propertyPhoto));
     }
 
 }

@@ -67,4 +67,7 @@
     <string name="fragment_item_card_view_point_of_interest_title">Point(s) of interest :</string>
     <string name="item_point_of_interest_name">Point of interest name</string>
     <string name="item_point_of_interest_address">123 rue des test 59000 LaMatrice</string>
+    <string name="dialog_photo_title">Add a picture</string>
+    <string name="dialog_add_picture_button">ADD PICTURE</string>
+    <string name="dialog_property_photo_description_error">Please add a description</string>
 </resources>
