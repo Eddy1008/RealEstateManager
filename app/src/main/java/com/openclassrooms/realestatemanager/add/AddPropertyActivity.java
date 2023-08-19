@@ -174,10 +174,8 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
     // ******* PROPERTY PHOTO *******
     // ******************************
 
-    // TODO BUG RECYCLER VERTICAL !
     private void configurePropertyPhotoRecyclerView() {
         RecyclerView pictureRecyclerView = binding.activityAddPropertyPictureRecyclerview;
-        pictureRecyclerView.setLayoutManager(new LinearLayoutManager(pictureRecyclerView.getContext()));
         pictureRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         propertyPhotoAdapter = new PropertyPhotoAdapter(propertyPhotoList, this);
         pictureRecyclerView.setAdapter(propertyPhotoAdapter);
@@ -474,12 +472,14 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
                     binding.activityAddPropertyEdittextBedroomNumber.setError(getString(R.string.add_property_bedroom_error));
                 } else if (binding.activityAddPropertyEdittextPrice.getText().toString().equals("")) {
                     binding.activityAddPropertyEdittextPrice.setError(getString(R.string.add_property_price_error));
+                } else if (propertyPhotoList.size() == 0) {
+                    Toast.makeText(AddPropertyActivity.this, "Please add photo to your property !", Toast.LENGTH_SHORT).show();
                 } else {
                     // Create a property
                     Property property = new Property(
                             binding.activityAddPropertyEdittextTitle.getText().toString(),
                             binding.activityAddPropertyEdittextAddress.getText().toString(),
-                            "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg",
+                            propertyPhotoList.get(0).getPhotoUrl(),
                             binding.activityAddPropertyEditTextMultilineDescription.getText().toString(),
                             getDate(),
                             "",
@@ -491,7 +491,7 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
                             propertyType.getId(),
                             1,
                             realEstateAgent.getId()
-                            );
+                    );
 
                     addPropertyViewModel.insertPropertyAndGetId(property).observe(AddPropertyActivity.this, new Observer<Long>() {
                         @Override

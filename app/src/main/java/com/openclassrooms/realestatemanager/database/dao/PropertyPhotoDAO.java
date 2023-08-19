@@ -20,7 +20,7 @@ public interface PropertyPhotoDAO {
     @Query("SELECT * FROM PropertyPhoto")
     LiveData<List<PropertyPhoto>> getPropertyPhotoList();
     @Query("SELECT * FROM PropertyPhoto WHERE propertyId = :propertyId")
-    LiveData<List<PropertyPhoto>> getPropertyPhotoByPropertyIdList(String propertyId);
+    LiveData<List<PropertyPhoto>> getPropertyPhotoByPropertyIdList(long propertyId);
 
     // U
     @Update

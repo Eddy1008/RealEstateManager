@@ -7,9 +7,33 @@
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
+    <ImageView
+        android:id="@+id/item_point_of_interest_marker_imageView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@color/item_point_of_interest_marker_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/item_point_of_interest_marker_char"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_point_of_interest_marker_char"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintTop_toTopOf="@id/item_point_of_interest_marker_imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/item_point_of_interest_marker_imageView"
+        app:layout_constraintStart_toStartOf="@+id/item_point_of_interest_marker_imageView"
+        app:layout_constraintEnd_toEndOf="@+id/item_point_of_interest_marker_imageView" />
+
     <TextView
         android:id="@+id/item_point_of_interest_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/item_point_of_interest_name"
         android:textStyle="bold"
@@ -17,21 +41,23 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_point_of_interest_marker_imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/item_point_of_interest_address"/>
 
     <TextView
         android:id="@+id/item_point_of_interest_address"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/item_point_of_interest_address"
-        android:textStyle="italic"
-        android:textSize="12sp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/item_point_of_interest_address"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/item_point_of_interest_marker_imageView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_point_of_interest_marker_imageView"
         app:layout_constraintTop_toBottomOf="@id/item_point_of_interest_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

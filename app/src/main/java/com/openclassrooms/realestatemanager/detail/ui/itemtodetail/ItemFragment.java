@@ -23,6 +23,7 @@ import com.openclassrooms.realestatemanager.databinding.FragmentItemBinding;
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
 import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
+import com.openclassrooms.realestatemanager.model.PropertyPhoto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +32,17 @@ public class ItemFragment extends Fragment {
 
     private FragmentItemBinding binding;
     private DetailViewModel detailViewModel;
-    private RecyclerView recyclerView;
+    private RecyclerView propertyPhotoRecyclerView;
+    private PropertyPhotoAdapter propertyPhotoAdapter;
+    private List<PropertyPhoto> propertyPhotoList = new ArrayList<>();
+    private RecyclerView pointOfInterestRecyclerView;
     private PointOfInterestAdapter pointOfInterestAdapter;
     private List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
     private Property item;
     private String propertyLat;
     private String propertyLng;
+    private String itemLocation;
+    private String itemMiniMapUrl;
 
     public ItemFragment() {
     }
@@ -57,7 +63,6 @@ public class ItemFragment extends Fragment {
         View root = binding.getRoot();
 
         detailViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(DetailViewModel.class);
-
         getMyProperty();
 
         return root;
@@ -68,9 +73,6 @@ public class ItemFragment extends Fragment {
             item = property;
             String title = item.getTitle() + " id = " + item.getId();
             binding.fragmentItemTitle.setText(title);
-            Glide.with(binding.fragmentItemImageviewPhoto)
-                    .load(item.getMainPhoto())
-                    .into(binding.fragmentItemImageviewPhoto);
             binding.fragmentItemTextviewDescription.setText(item.getPropertyDescription());
             binding.fragmentItemCardViewSurface.setText(String.valueOf(item.getPropertySurface()));
             binding.fragmentItemCardViewNumberRoom.setText(String.valueOf(item.getRoomNumber()));
@@ -78,49 +80,70 @@ public class ItemFragment extends Fragment {
             binding.fragmentItemCardViewNumberBedroom.setText(String.valueOf(item.getBedroomNumber()));
             binding.fragmentItemCardViewLocation.setText(item.getAddress());
 
-            // TODO Afficher la map miniature ...
-            String pointOfInterestLat = " 50.612427";
-            String pointOfInterestLng = "2.967424";
-            convertAddressToLatLng(item.getAddress());
-            String myUri = "https://maps.googleapis.com/maps/api/staticmap?center=" + propertyLat + "," + propertyLng + "&zoom=15&size=300x300"
-                    + "&markers=color:blue%7Clabel:S%7C" + propertyLat + "," + propertyLng
-                    + "&markers=size:mid%7Ccolor:0xFFFF00%7Clabel:C%7C" + pointOfInterestLat + "," + pointOfInterestLng
-                    + "&key=" + BuildConfig.MAPS_API_KEY;
+            itemLocation = convertAddressToLatLng(item.getAddress());
 
-            Glide.with(binding.fragmentItemCardViewMiniMap)
-                    .load(myUri)
-                    .into(binding.fragmentItemCardViewMiniMap);
+            detailViewModel.initPropertyPhotoListByPropertyId(item.getId());
+            configurePropertyPhotoRecyclerView();
 
             detailViewModel.initPointOfInterestListByPropertyId(item.getId());
             configurePointOfInterestRecyclerView();
+
+        });
+    }
+
+    private void configurePropertyPhotoRecyclerView() {
+        propertyPhotoRecyclerView = binding.fragmentItemPropertyPhotoRecyclerview;
+        propertyPhotoRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
+        detailViewModel.getPropertyPhotoListByPropertyId().observe(getViewLifecycleOwner(), propertyPhotos -> {
+            propertyPhotoList = propertyPhotos;
+            propertyPhotoAdapter = new PropertyPhotoAdapter(propertyPhotoList);
+            propertyPhotoRecyclerView.setAdapter(propertyPhotoAdapter);
         });
     }
 
     private void configurePointOfInterestRecyclerView() {
-        recyclerView = binding.fragmentItemPointOfInterestRecyclerview;
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        pointOfInterestRecyclerView = binding.fragmentItemPointOfInterestRecyclerview;
+        pointOfInterestRecyclerView.setLayoutManager(new LinearLayoutManager(pointOfInterestRecyclerView.getContext()));
+        pointOfInterestRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         detailViewModel.getPointOfInterestListByPropertyId().observe(getViewLifecycleOwner(), pointOfInterestNearbies -> {
             pointOfInterestList = pointOfInterestNearbies;
-            Log.d("TAG", "configurePointOfInterestRecyclerView: pointOfInterestList.size() = " + pointOfInterestList.size());
             pointOfInterestAdapter = new PointOfInterestAdapter(pointOfInterestList);
-            recyclerView.setAdapter(pointOfInterestAdapter);
+            pointOfInterestRecyclerView.setAdapter(pointOfInterestAdapter);
+
+            configureMiniMap(pointOfInterestList);
         });
     }
 
+    private void configureMiniMap(List<PointOfInterestNearby> pointOfInterestList) {
+        itemMiniMapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + itemLocation + "&zoom=16&size=400x400"
+                + "&markers=color:blue%7Clabel:S%7C" + itemLocation;
+        char alphabet = 'A';
+        for (int i=0; i<pointOfInterestList.size(); i++) {
+            String pointLocation = convertAddressToLatLng(pointOfInterestList.get(i).getAddress());
+            itemMiniMapUrl = itemMiniMapUrl + "&markers=color:0xFFFF00%7Clabel:" + alphabet + "%7C" + pointLocation;
+            alphabet++;
+        }
 
-    public void convertAddressToLatLng(String address) {
+        itemMiniMapUrl = itemMiniMapUrl + "&key=" + BuildConfig.MAPS_API_KEY;
+
+        Glide.with(binding.fragmentItemCardViewMiniMap)
+                .load(itemMiniMapUrl)
+                .into(binding.fragmentItemCardViewMiniMap);
+    }
+
+    public String convertAddressToLatLng(String address) {
+        String addressLatLng = "";
         if (address != null && !address.isEmpty()) {
             try {
                 Geocoder coder = new Geocoder(getContext());
                 List<Address> addressList = coder.getFromLocationName(address,1);
                 if (addressList != null && addressList.size()>0) {
-                    propertyLat = String.valueOf(addressList.get(0).getLatitude());
-                    propertyLng = String.valueOf(addressList.get(0).getLongitude());
+                    addressLatLng = addressList.get(0).getLatitude() + "," + addressList.get(0).getLongitude();
                 }
             } catch (Exception e) {
                 Log.e("TAG", "convertAddressToLatLng: ", e );
             }
         }
+        return addressLatLng;
     }
 }

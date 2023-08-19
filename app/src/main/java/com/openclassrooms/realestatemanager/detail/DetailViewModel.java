@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
+import com.openclassrooms.realestatemanager.model.PropertyPhoto;
 import com.openclassrooms.realestatemanager.repositories.PointOfInterestNearbyRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyPhotoRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyRepository;
@@ -29,6 +30,7 @@ public class DetailViewModel extends ViewModel {
 
     // DATA
     private LiveData<List<PointOfInterestNearby>> pointOfInterestList;
+    private LiveData<List<PropertyPhoto>> propertyPhotoList;
 
     public DetailViewModel(PointOfInterestNearbyRepository pointOfInterestNearbyRepository,
                            PropertyPhotoRepository propertyPhotoRepository,
@@ -68,6 +70,21 @@ public class DetailViewModel extends ViewModel {
 
     public LiveData<List<PointOfInterestNearby>> getPointOfInterestListByPropertyId() {
         return this.pointOfInterestList;
+    }
+
+    // ******************************
+    // ******* PROPERTY PHOTO *******
+    // ******************************
+
+    public void initPropertyPhotoListByPropertyId(long propertyId) {
+        if (this.propertyPhotoList != null) {
+            return;
+        }
+        propertyPhotoList = propertyPhotoRepository.getPropertyPhotoByPropertyIdList(propertyId);
+    }
+
+    public LiveData<List<PropertyPhoto>> getPropertyPhotoListByPropertyId() {
+        return this.propertyPhotoList;
     }
 
 }

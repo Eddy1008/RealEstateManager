@@ -32,7 +32,9 @@ public class PointOfInterestAdapter extends RecyclerView.Adapter<PointOfInterest
 
     @Override
     public void onBindViewHolder(@NonNull PointOfInterestViewHolder holder, int position) {
-        holder.bind(pointOfInterestList.get(position));
+        int alphabetInt = 65 + position;
+        char markerId = (char) alphabetInt;
+        holder.bind(pointOfInterestList.get(position), markerId);
     }
 
     @Override

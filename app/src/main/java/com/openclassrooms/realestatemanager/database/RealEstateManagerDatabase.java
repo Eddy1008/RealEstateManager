@@ -74,22 +74,26 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
                     INSTANCE.realEstateAgentDAO().createRealEstateAgent(new RealEstateAgent(2, "Ethan", "Ethan@gmail.com", "", "9876543210"));
                     // PROPERTY
                     long firstPropertyId = INSTANCE.propertyDAO().createProperty(
-                            new Property("test 1", "147 sentier de l'église 59320 hallennes-lez-haubourdin",
+                            new Property("Eddy's loft", "147 sentier de l'église 59320 hallennes-lez-haubourdin",
                                     "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg",
                                     "BLABLA blablabla BLABLA blablabla BLABLA blablabla", "04/08/2023", "",
                                     300000, 175, 10, 3, 3, 2, 1,1)
                     );
                     long secondPropertyId = INSTANCE.propertyDAO().createProperty(
-                            new Property("test 2", "48 rue de l'hirondelle 59320 hallennes-lez-haubourdin",
+                            new Property("Melody's house", "48 rue de l'hirondelle 59320 hallennes-lez-haubourdin",
                                     "https://cdn.pixabay.com/photo/2016/09/05/18/54/texture-1647380_960_720.jpg",
                                     "PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA , PATATI ET PATATA", "02/08/2023", "",
                                     450000, 210, 8, 2, 4, 1, 1, 1)
                     );
                     // POINT OF INTEREST NEARBY
-                    INSTANCE.pointOfInterestNearbyDAO().createPointOfInterest(new PointOfInterestNearby("Boulangerie", "143 sentier de l'église 59320 hallennes-lez-haubourdin", firstPropertyId));
-                    INSTANCE.pointOfInterestNearbyDAO().createPointOfInterest(new PointOfInterestNearby("Boucherie", "151 sentier de l'église 59320 hallennes-lez-haubourdin", firstPropertyId));
-                    INSTANCE.pointOfInterestNearbyDAO().createPointOfInterest(new PointOfInterestNearby("Boulangerie", "143 sentier de l'église 59320 hallennes-lez-haubourdin", secondPropertyId));
+                    INSTANCE.pointOfInterestNearbyDAO().createPointOfInterest(new PointOfInterestNearby("Melody's", "48 rue de l'hirondelle 59320 hallennes-lez-haubourdin", firstPropertyId));
+                    INSTANCE.pointOfInterestNearbyDAO().createPointOfInterest(new PointOfInterestNearby("Ecole maternelle Loridan", "23 rue léon gambetta 59320 hallennes-lez-haubourdin", firstPropertyId));
+                    INSTANCE.pointOfInterestNearbyDAO().createPointOfInterest(new PointOfInterestNearby("Supermarcé Leclerc", "47 rue émile zola 59320 hallennes-lez-haubourdin", firstPropertyId));
+                    INSTANCE.pointOfInterestNearbyDAO().createPointOfInterest(new PointOfInterestNearby("Eddy's", "147 sentier de l'église 59320 hallennes-lez-haubourdin", secondPropertyId));
+                    INSTANCE.pointOfInterestNearbyDAO().createPointOfInterest(new PointOfInterestNearby("Ecole maternelle Loridan", "23 rue léon gambetta 59320 hallennes-lez-haubourdin", secondPropertyId));
                     // PHOTO
+                    INSTANCE.propertyPhotoDAO().createPropertyPhoto(new PropertyPhoto("https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg", "Me", firstPropertyId));
+                    INSTANCE.propertyPhotoDAO().createPropertyPhoto(new PropertyPhoto("https://cdn.pixabay.com/photo/2016/09/05/18/54/texture-1647380_960_720.jpg", "Pet", secondPropertyId));
                 });
             }
         };
