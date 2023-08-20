@@ -58,7 +58,6 @@ public abstract class RealEstateManagerDatabase extends RoomDatabase {
             @Override
             public void onCreate(@NotNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
-                // TODO Prepopulate: Add photo in database
                 Executors.newSingleThreadExecutor().execute(() -> {
                     // PROPERTY SALE  STATUS
                     INSTANCE.propertySaleStatusDAO().createPropertySaleStatus(new PropertySaleStatus(1, "For sale"));

@@ -28,6 +28,8 @@ public class MapviewFragment extends Fragment implements OnMapReadyCallback {
     private MainViewModel mainViewModel;
     private FragmentMapviewBinding binding;
 
+    // TODO GEOLOCALISER UTILISATEUR ET AFFICHER LA LISTE DES BIENS SUR LA CARTE
+
     // TODO ask Localisation Permission
     /**
     private boolean locationPermissionGranted;

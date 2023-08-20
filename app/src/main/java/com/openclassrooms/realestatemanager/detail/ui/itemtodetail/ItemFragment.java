@@ -39,8 +39,6 @@ public class ItemFragment extends Fragment {
     private PointOfInterestAdapter pointOfInterestAdapter;
     private List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
     private Property item;
-    private String propertyLat;
-    private String propertyLng;
     private String itemLocation;
     private String itemMiniMapUrl;
 
@@ -64,6 +62,10 @@ public class ItemFragment extends Fragment {
 
         detailViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(DetailViewModel.class);
         getMyProperty();
+
+        // TODO POSSIBILITE DE METTRE A JOUR LES INFORMATIONS SAISIES
+
+        // TODO AFFICHER LE BIEN "VENDU"
 
         return root;
     }

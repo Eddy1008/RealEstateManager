@@ -60,8 +60,8 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
     private PropertyType propertyType;
     private List<RealEstateAgent> realEstateAgentList;
     private RealEstateAgent realEstateAgent;
-    private final List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
-    private final List<PropertyPhoto> propertyPhotoList = new ArrayList<>();
+    private List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
+    private List<PropertyPhoto> propertyPhotoList = new ArrayList<>();
 
     public static final int CAMERA_ACTION_CODE = 12;
     public static final int PICK_ACTION_CODE = 13;
@@ -178,7 +178,11 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
         RecyclerView pictureRecyclerView = binding.activityAddPropertyPictureRecyclerview;
         pictureRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         propertyPhotoAdapter = new PropertyPhotoAdapter(propertyPhotoList, this);
-        pictureRecyclerView.setAdapter(propertyPhotoAdapter);
+        addPropertyViewModel.getListOfPropertyPhotoToAdd().observe(this, propertyPhotoList1 -> {
+            propertyPhotoList = propertyPhotoList1;
+            propertyPhotoAdapter.updatePropertyPhotoList(propertyPhotoList);
+            pictureRecyclerView.setAdapter(propertyPhotoAdapter);
+        });
     }
 
     private void setAddPictureButton() {
@@ -347,14 +351,12 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
     }
 
     private void addPropertyPhoto(PropertyPhoto propertyPhoto) {
-        propertyPhotoList.add(propertyPhoto);
-        propertyPhotoAdapter.updatePropertyPhotoList(propertyPhotoList);
+        addPropertyViewModel.addPropertyPhotoToAddList(propertyPhoto);
     }
 
     @Override
     public void onDeletePropertyPhoto(PropertyPhoto propertyPhoto) {
-        propertyPhotoList.remove(propertyPhoto);
-        propertyPhotoAdapter.updatePropertyPhotoList(propertyPhotoList);
+        addPropertyViewModel.deletePropertyPhotoFromAddList(propertyPhoto);
     }
 
     // *********************************
@@ -363,10 +365,14 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
 
     private void configurePointOfInterestRecyclerView() {
         RecyclerView recyclerView = binding.activityAddPropertyPointOfInterestRecyclerview;
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         adapter = new PointOfInterestAdapter(pointOfInterestList, this);
-        recyclerView.setAdapter(adapter);
+        addPropertyViewModel.getListOfPointOfInterestToAdd().observe(this, pointOfInterestNearbies -> {
+            pointOfInterestList = pointOfInterestNearbies;
+            adapter.updatePointOfInterestList(pointOfInterestList);
+            recyclerView.setAdapter(adapter);
+        });
+
     }
 
     private void setAddPointOfInterestButton() {
@@ -438,14 +444,12 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
     }
 
     private void addPointOfInterest(PointOfInterestNearby pointOfInterestNearby) {
-        pointOfInterestList.add(pointOfInterestNearby);
-        adapter.updatePointOfInterestList(pointOfInterestList);
+        addPropertyViewModel.addPointOfInterestToAddList(pointOfInterestNearby);
     }
 
     @Override
     public void onDeletePointOfInterest(PointOfInterestNearby pointOfInterest) {
-        pointOfInterestList.remove(pointOfInterest);
-        adapter.updatePointOfInterestList(pointOfInterestList);
+        addPropertyViewModel.deletePointOfInterestToAddList(pointOfInterest);
     }
 
     // ************************
@@ -504,6 +508,7 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
                                 PropertyPhoto newPhoto = new PropertyPhoto(photo.getPhotoUrl(), photo.getPhotoDescription(), insertedId);
                                 addPropertyViewModel.addPropertyPhoto(newPhoto);
                             }
+                            Toast.makeText(AddPropertyActivity.this, "Nouvel élément créé : ID " + insertedId , Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     });

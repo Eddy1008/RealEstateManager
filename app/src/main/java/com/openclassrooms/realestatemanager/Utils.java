@@ -41,6 +41,7 @@ public class Utils {
      */
     public static Boolean isInternetAvailable(Context context){
         WifiManager wifi = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+        // TODO connectivity manager
         return wifi.isWifiEnabled();
     }
 }

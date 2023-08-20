@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                // TODO add a property
                 Toast.makeText(MainActivity.this, "Hello you !", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -105,13 +104,13 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                // TODO research submit
+                // TODO RECHERCHE MULTICRITERE (NOUVELLE ACTIVITY OU ALERTDIALOG)
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                // TODO reseach text change
+
                 return false;
             }
         });
