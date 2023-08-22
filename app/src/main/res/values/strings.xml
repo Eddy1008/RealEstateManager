@@ -71,4 +71,6 @@
     <string name="dialog_add_picture_button">ADD PICTURE</string>
     <string name="dialog_property_photo_description_error">Please add a description</string>
     <string name="item_point_of_interest_marker_char">A</string>
+    <string name="update_view">UPDATE_VIEW</string>
+    <string name="fragment_item_update_button">UPDATE</string>
 </resources>

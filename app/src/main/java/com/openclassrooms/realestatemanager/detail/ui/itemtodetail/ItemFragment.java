@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.detail.ui.itemtodetail;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.openclassrooms.realestatemanager.detail.DetailViewModel;
 import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
 import com.openclassrooms.realestatemanager.model.PropertyPhoto;
+import com.openclassrooms.realestatemanager.update.UpdatePropertyActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +65,6 @@ public class ItemFragment extends Fragment {
         detailViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(DetailViewModel.class);
         getMyProperty();
 
-        // TODO POSSIBILITE DE METTRE A JOUR LES INFORMATIONS SAISIES
-
         // TODO AFFICHER LE BIEN "VENDU"
 
         return root;
@@ -90,6 +90,20 @@ public class ItemFragment extends Fragment {
             detailViewModel.initPointOfInterestListByPropertyId(item.getId());
             configurePointOfInterestRecyclerView();
 
+            setUpdateButton();
+        });
+    }
+
+    private void setUpdateButton() {
+        binding.fragmentItemUpdateImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), UpdatePropertyActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("PROPERTY_ITEM_TO_UPDATE", item);
+                intent.putExtra("BUNDLE_ITEM_TO_UPDATE", bundle);
+                view.getContext().startActivity(intent);
+            }
         });
     }
 

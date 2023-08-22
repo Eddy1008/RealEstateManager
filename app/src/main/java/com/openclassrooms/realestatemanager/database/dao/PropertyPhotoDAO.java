@@ -27,6 +27,6 @@ public interface PropertyPhotoDAO {
     void updatePropertyPhoto(PropertyPhoto propertyPhoto);
 
     // D
-    @Query("DELETE FROM PropertyType WHERE id = :propertyPhotoId")
-    void deletePropertyPhoto(String propertyPhotoId);
+    @Query("DELETE FROM PropertyPhoto WHERE id = :propertyPhotoId")
+    void deletePropertyPhoto(long propertyPhotoId);
 }

@@ -31,7 +31,7 @@ public class PropertyRepository {
     public LiveData<List<Property>> getPropertyList() {
         return this.propertyDAO.getPropertyList();
     }
-    public LiveData<Property> getPropertyById(String propertyId) {
+    public LiveData<Property> getPropertyById(long propertyId) {
         return this.propertyDAO.getPropertyById(propertyId);
     }
 
@@ -41,7 +41,7 @@ public class PropertyRepository {
     }
 
     // D
-    public void deleteProperty(String propertyId) {
+    public void deleteProperty(long propertyId) {
         this.propertyDAO.deleteProperty(propertyId);
     }
 }

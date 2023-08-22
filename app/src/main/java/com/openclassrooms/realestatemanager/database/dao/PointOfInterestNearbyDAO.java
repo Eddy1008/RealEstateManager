@@ -29,5 +29,5 @@ public interface PointOfInterestNearbyDAO {
 
     // D
     @Query("DELETE FROM PointOfInterestNearby WHERE id = :pointOfInterestId")
-    void deletePointOfInterest(String pointOfInterestId);
+    void deletePointOfInterest(long pointOfInterestId);
 }

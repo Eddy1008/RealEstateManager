@@ -34,7 +34,7 @@ public class PointOfInterestNearbyRepository {
     }
 
     // D
-    public void deletePointOfInterestNearby(String pointOfInterestId) {
+    public void deletePointOfInterestNearby(long pointOfInterestId) {
         this.pointOfInterestNearbyDAO.deletePointOfInterest(pointOfInterestId);
     }
 }

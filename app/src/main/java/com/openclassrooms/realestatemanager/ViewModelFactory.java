@@ -16,6 +16,7 @@ import com.openclassrooms.realestatemanager.repositories.PropertyRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertySaleStatusRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyTypeRepository;
 import com.openclassrooms.realestatemanager.repositories.RealEstateAgentRepository;
+import com.openclassrooms.realestatemanager.update.UpdatePropertyViewModel;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -57,6 +58,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+        if (modelClass.isAssignableFrom(UpdatePropertyViewModel.class)) {
+            return (T) new UpdatePropertyViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertySaleStatusRepository, propertyTypeRepository, realEstateAgentRepository, executor);
+        }
+
         if (modelClass.isAssignableFrom(DetailViewModel.class)) {
             return (T) new DetailViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertySaleStatusRepository, propertyTypeRepository, realEstateAgentRepository, executor);
         }

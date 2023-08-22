@@ -34,7 +34,7 @@ public class PropertyPhotoRepository {
     }
 
     // D
-    public void deletePropertyPhoto(String propertyPhotoId) {
+    public void deletePropertyPhoto(long propertyPhotoId) {
         this.propertyPhotoDAO.deletePropertyPhoto(propertyPhotoId);
     }
 }

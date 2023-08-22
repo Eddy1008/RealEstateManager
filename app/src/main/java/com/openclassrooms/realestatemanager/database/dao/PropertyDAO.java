@@ -20,7 +20,7 @@ public interface PropertyDAO {
     @Query("SELECT * FROM Property")
     LiveData<List<Property>> getPropertyList();
     @Query("SELECT * FROM Property WHERE id = :propertyId")
-    LiveData<Property> getPropertyById(String propertyId);
+    LiveData<Property> getPropertyById(long propertyId);
 
     // U
     @Update
@@ -28,5 +28,5 @@ public interface PropertyDAO {
 
     // D
     @Query("DELETE FROM Property WHERE id = :propertyId")
-    void deleteProperty(String propertyId);
+    void deleteProperty(long propertyId);
 }

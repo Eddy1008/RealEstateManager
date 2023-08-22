@@ -31,6 +31,7 @@ public class DetailViewModel extends ViewModel {
     // DATA
     private LiveData<List<PointOfInterestNearby>> pointOfInterestList;
     private LiveData<List<PropertyPhoto>> propertyPhotoList;
+    private final MutableLiveData<Property> myProperty = new MutableLiveData<>();
 
     public DetailViewModel(PointOfInterestNearbyRepository pointOfInterestNearbyRepository,
                            PropertyPhotoRepository propertyPhotoRepository,
@@ -48,10 +49,15 @@ public class DetailViewModel extends ViewModel {
         this.executor = executor;
     }
 
-    // Data
-    private final MutableLiveData<Property> myProperty = new MutableLiveData<>();
+    // ************************
+    // ******* PROPERTY *******
+    // ************************
+
     public void setMyProperty(Property property) {
-        myProperty.setValue(property);
+        LiveData<Property> propertyFromDB = propertyRepository.getPropertyById(property.getId());
+        propertyFromDB.observeForever(property1 -> {
+            myProperty.setValue(property1);
+        });
     }
     public LiveData<Property> getMyProperty() {
         return this.myProperty;
@@ -62,9 +68,7 @@ public class DetailViewModel extends ViewModel {
     // *********************************
 
     public void initPointOfInterestListByPropertyId(long propertyId) {
-        if (this.pointOfInterestList != null) {
-            return;
-        }
+
         pointOfInterestList = pointOfInterestNearbyRepository.getPointOfInterestNearbyByPropertyIdList(propertyId);
     }
 
@@ -77,9 +81,7 @@ public class DetailViewModel extends ViewModel {
     // ******************************
 
     public void initPropertyPhotoListByPropertyId(long propertyId) {
-        if (this.propertyPhotoList != null) {
-            return;
-        }
+
         propertyPhotoList = propertyPhotoRepository.getPropertyPhotoByPropertyIdList(propertyId);
     }
 
