@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.customview.DeleteButtonImageView;
 import com.openclassrooms.realestatemanager.model.PropertyPhoto;
 
 public class PropertyPhotoViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView deletePicture;
+    private DeleteButtonImageView deletePicture;
     private ImageView picture;
 
     private final PropertyPhotoAdapter.DeletePropertyPhotoListener deletePropertyPhotoListener;
@@ -23,8 +24,6 @@ public class PropertyPhotoViewHolder extends RecyclerView.ViewHolder {
         this.picture = itemView.findViewById(R.id.item_property_photo_to_add_imageview);
         this.deletePicture = itemView.findViewById(R.id.item_property_photo_to_add_delete_button);
 
-        // TODO CustomView du button !
-        // TODO content provider
         deletePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

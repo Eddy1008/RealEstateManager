@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
                 // TODO localise me button
+                // TODO content provider
                 Toast.makeText(MainActivity.this, "Will redirect to allow geo localisation activity !", Toast.LENGTH_SHORT).show();
                 return false;
             }
