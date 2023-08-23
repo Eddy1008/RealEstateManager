@@ -69,9 +69,11 @@ public class ListviewFragment extends Fragment {
 
     private void getMyPropertyList() {
         mainViewModel.getPropertyList().observe(getViewLifecycleOwner(), properties -> {
-            propertyList = new ArrayList<>(properties);
-            adapter.updateMyList(propertyList);
-            recyclerView.setAdapter(adapter);
+            if (properties != null) {
+                propertyList = new ArrayList<>(properties);
+                adapter.updateMyList(propertyList);
+                recyclerView.setAdapter(adapter);
+            }
         });
     }
 

@@ -97,6 +97,7 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
         setContentView(binding.getRoot());
 
         binding.activityAddPropertyAddButton.setText("UPDATE");
+        binding.activityAddPropertyTextviewTitle.setText("UPDATE THE PROPERTY");
 
         updatePropertyViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(UpdatePropertyViewModel.class);
         updatePropertyViewModel.initPropertyTypeList();

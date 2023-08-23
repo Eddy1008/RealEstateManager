@@ -34,6 +34,11 @@ public class PropertyRepository {
     public LiveData<Property> getPropertyById(long propertyId) {
         return this.propertyDAO.getPropertyById(propertyId);
     }
+    public LiveData<List<Property>> getPropertyBySpecifiedOptions(String mySearchRequestTitle, String mySearchRequestAddress, String mySearchRequestSurfaceMin,
+                                                                  String mySearchRequestSurfaceMax, String mySearchRequestRoom, String mySearchRequestBathroom,
+                                                                  String mySearchRequestBedroom, String mySearchRequestPrice, String mySearchRequestTypeId, String mySearchRequestAgentId) {
+        return this.propertyDAO.getPropertyBySpecifiedOptions2(mySearchRequestTitle, mySearchRequestAddress, mySearchRequestSurfaceMin, mySearchRequestSurfaceMax, mySearchRequestRoom, mySearchRequestBathroom, mySearchRequestBedroom, mySearchRequestPrice, mySearchRequestTypeId, mySearchRequestAgentId);
+    }
 
     // U
     public void updateProperty(Property property) {

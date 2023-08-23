@@ -73,4 +73,8 @@
     <string name="item_point_of_interest_marker_char">A</string>
     <string name="update_view">UPDATE_VIEW</string>
     <string name="fragment_item_update_button">UPDATE</string>
+    <string name="action_localise_my_position">Localise me button</string>
+    <string name="dialog_search_title">Search properties :</string>
+    <string name="dialog_search_button">SEARCH !</string>
+    <string name="dialog_search_spinner_type_title">Select type:</string>
 </resources>

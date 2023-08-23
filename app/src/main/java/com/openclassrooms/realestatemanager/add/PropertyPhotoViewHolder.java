@@ -23,6 +23,8 @@ public class PropertyPhotoViewHolder extends RecyclerView.ViewHolder {
         this.picture = itemView.findViewById(R.id.item_property_photo_to_add_imageview);
         this.deletePicture = itemView.findViewById(R.id.item_property_photo_to_add_delete_button);
 
+        // TODO CustomView du button !
+        // TODO content provider
         deletePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
