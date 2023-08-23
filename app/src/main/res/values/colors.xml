@@ -10,4 +10,5 @@
     <color name="item_point_of_interest_marker_background">#FFFF00</color>
 
     <color name="colorDeleteButton">#FFFF80</color>
+    <color name="dialog_zoom_background">#52000000</color>
 </resources>
