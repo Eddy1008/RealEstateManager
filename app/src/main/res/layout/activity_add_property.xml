@@ -41,6 +41,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/activity_add_property_for_sale_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_add_property_for_sale_switch"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/activity_add_property_textview_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
             <EditText
                 android:id="@+id/activity_add_property_edittext_title"
                 android:layout_width="match_parent"
@@ -53,7 +63,7 @@
                 android:autofillHints="name"
                 android:backgroundTint="@color/colorPrimary"
                 android:inputType="text"
-                app:layout_constraintTop_toBottomOf="@id/activity_add_property_textview_title"
+                app:layout_constraintTop_toBottomOf="@id/activity_add_property_for_sale_switch"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

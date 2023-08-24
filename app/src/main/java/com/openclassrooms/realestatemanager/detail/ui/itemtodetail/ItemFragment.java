@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,12 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.realestatemanager.BuildConfig;
+import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.FragmentItemBinding;
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
 import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
 import com.openclassrooms.realestatemanager.model.PropertyPhoto;
+import com.openclassrooms.realestatemanager.model.PropertySaleStatus;
+import com.openclassrooms.realestatemanager.model.PropertyType;
+import com.openclassrooms.realestatemanager.model.RealEstateAgent;
 import com.openclassrooms.realestatemanager.update.UpdatePropertyActivity;
 
 import java.util.ArrayList;
@@ -34,12 +39,19 @@ public class ItemFragment extends Fragment {
 
     private FragmentItemBinding binding;
     private DetailViewModel detailViewModel;
+
     private RecyclerView propertyPhotoRecyclerView;
     private PropertyPhotoAdapter propertyPhotoAdapter;
     private List<PropertyPhoto> propertyPhotoList = new ArrayList<>();
+
     private RecyclerView pointOfInterestRecyclerView;
     private PointOfInterestAdapter pointOfInterestAdapter;
     private List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
+
+    private List<PropertySaleStatus> propertySaleStatusList = new ArrayList<>();
+    private List<PropertyType> propertyTypeList = new ArrayList<>();
+    private List<RealEstateAgent> realEstateAgentList = new ArrayList<>();
+
     private Property item;
     private String itemLocation;
     private String itemMiniMapUrl;
@@ -63,9 +75,11 @@ public class ItemFragment extends Fragment {
         View root = binding.getRoot();
 
         detailViewModel = new ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(getContext())).get(DetailViewModel.class);
+        detailViewModel.initPropertyType();
+        detailViewModel.initPropertySaleStatus();
+        detailViewModel.initRealEstateAgentList();
+        detailViewModel.initPropertyType();
         getMyProperty();
-
-        // TODO AFFICHER LE BIEN "VENDU"
 
         return root;
     }
@@ -73,8 +87,9 @@ public class ItemFragment extends Fragment {
     private void getMyProperty() {
         detailViewModel.getMyProperty().observe(getViewLifecycleOwner(), property -> {
             item = property;
-            String title = item.getTitle() + " id = " + item.getId();
-            binding.fragmentItemTitle.setText(title);
+            binding.fragmentItemTitle.setText(item.getTitle());
+            binding.fragmentItemOnSaleDateTextview.setText(item.getOnSaleDate());
+            binding.fragmentItemTextviewSoldDate.setText(item.getSaleDealDate());
             binding.fragmentItemTextviewDescription.setText(item.getPropertyDescription());
             binding.fragmentItemCardViewSurface.setText(String.valueOf(item.getPropertySurface()));
             binding.fragmentItemCardViewNumberRoom.setText(String.valueOf(item.getRoomNumber()));
@@ -90,7 +105,58 @@ public class ItemFragment extends Fragment {
             detailViewModel.initPointOfInterestListByPropertyId(item.getId());
             configurePointOfInterestRecyclerView();
 
+            getPropertySaleStatus();
+            getRealEstateAgent();
+            getPropertyType();
             setUpdateButton();
+        });
+    }
+
+    private void getPropertySaleStatus() {
+        detailViewModel.getPropertySaleStatusList().observe(getViewLifecycleOwner(), propertySaleStatuses -> {
+            propertySaleStatusList = propertySaleStatuses;
+            String propertyStatutName = "";
+            for (PropertySaleStatus status : propertySaleStatusList) {
+                if (item.getPropertySaleStatusId() == status.getId()) {
+                    propertyStatutName = status.getName();
+                }
+            }
+            if (propertyStatutName.equals("Sold")) {
+                int color = ContextCompat.getColor(getContext(), R.color.fragment_item_sold);
+                binding.fragmentItemSaleStatus.setTextColor(color);
+                binding.fragmentItemTextviewSoldTitle.setVisibility(View.VISIBLE);
+                binding.fragmentItemTextviewSoldDate.setVisibility(View.VISIBLE);
+            } else {
+                int color = ContextCompat.getColor(getContext(), R.color.fragment_item_for_sale);
+                binding.fragmentItemSaleStatus.setTextColor(color);
+                binding.fragmentItemSaleStatus.setText(propertyStatutName);
+                binding.fragmentItemTextviewSoldTitle.setVisibility(View.GONE);
+                binding.fragmentItemTextviewSoldDate.setVisibility(View.GONE);
+            }
+            binding.fragmentItemSaleStatus.setText(propertyStatutName);
+
+        });
+    }
+
+    private void getRealEstateAgent() {
+        detailViewModel.getRealEstateAgentList().observe(getViewLifecycleOwner(), realEstateAgents -> {
+            realEstateAgentList = realEstateAgents;
+            for (RealEstateAgent agent : realEstateAgentList) {
+                if (item.getRealEstateAgentId() == agent.getId()) {
+                    binding.fragmentItemAgentTextview.setText(agent.getName());
+                }
+            }
+        });
+    }
+
+    private void getPropertyType() {
+        detailViewModel.getPropertyTypeList().observe(getViewLifecycleOwner(), propertyTypes -> {
+            propertyTypeList = propertyTypes;
+            for (PropertyType type : propertyTypeList) {
+                if (item.getPropertyTypeId() == type.getId()) {
+                    binding.fragmentItemTextviewType.setText(type.getName());
+                }
+            }
         });
     }
 

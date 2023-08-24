@@ -15,6 +15,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -42,10 +45,13 @@ import com.openclassrooms.realestatemanager.model.RealEstateAgent;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class UpdatePropertyActivity extends AppCompatActivity implements PointOfInterestAdapter.DeletePointOfInterestListener, PropertyPhotoAdapter.DeletePropertyPhotoListener{
 
@@ -58,6 +64,10 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
 
     private List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
     private List<PropertyPhoto> propertyPhotoList = new ArrayList<>();
+
+    private boolean isSoldChecked;
+    private int switchColor;
+    private String saleDealDate;
 
     public static final int CAMERA_ACTION_CODE = 12;
     public static final int PICK_ACTION_CODE = 13;
@@ -98,6 +108,7 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
 
         binding.activityAddPropertyAddButton.setText("UPDATE");
         binding.activityAddPropertyTextviewTitle.setText("UPDATE THE PROPERTY");
+        binding.activityAddPropertyForSaleSwitch.setVisibility(View.VISIBLE);
 
         updatePropertyViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(UpdatePropertyViewModel.class);
         updatePropertyViewModel.initPropertyTypeList();
@@ -111,6 +122,7 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
         displayRealEstateAgentSpinner();
         displayPropertyPointOfInterestList();
 
+        setSwitchButton();
         setAddPictureButton();
         setAddPointOfInterestButton();
         setUpdatePropertyButton();
@@ -135,6 +147,39 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
         binding.activityAddPropertyEdittextBathroomNumber.setText(String.valueOf(propertyToUpdate.getBathroomNumber()));
         binding.activityAddPropertyEdittextBedroomNumber.setText(String.valueOf(propertyToUpdate.getBedroomNumber()));
         binding.activityAddPropertyEdittextPrice.setText(String.valueOf(propertyToUpdate.getPropertyPrice()));
+    }
+
+    // ************************************
+    // ******* PROPERTY SALE STATUS *******
+    // ************************************
+
+    private void setSwitchButton() {
+        saleDealDate = propertyToUpdate.getSaleDealDate();
+
+        if (propertyToUpdate.getPropertySaleStatusId() == 2) {
+            binding.activityAddPropertyForSaleSwitch.setChecked(true);
+            switchColor = getResources().getColor(R.color.fragment_item_sold);
+        } else {
+            binding.activityAddPropertyForSaleSwitch.setChecked(false);
+            switchColor = getResources().getColor(R.color.fragment_item_for_sale);
+        }
+        binding.activityAddPropertyForSaleSwitch.getThumbDrawable().setColorFilter(switchColor, PorterDuff.Mode.MULTIPLY);
+
+        binding.activityAddPropertyForSaleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    isSoldChecked = true;
+                    saleDealDate = getDate();
+                    switchColor = getResources().getColor(R.color.fragment_item_sold);
+                } else {
+                    isSoldChecked = false;
+                    saleDealDate = "";
+                    switchColor = getResources().getColor(R.color.fragment_item_for_sale);
+                }
+                binding.activityAddPropertyForSaleSwitch.getThumbDrawable().setColorFilter(switchColor, PorterDuff.Mode.MULTIPLY);
+            }
+        });
     }
 
     // ******************************
@@ -532,13 +577,17 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
                     propertyToUpdate.setAddress(binding.activityAddPropertyEdittextAddress.getText().toString());
                     propertyToUpdate.setMainPhoto(propertyPhotoList.get(0).getPhotoUrl());
                     propertyToUpdate.setPropertyDescription(binding.activityAddPropertyEditTextMultilineDescription.getText().toString());
-                    propertyToUpdate.setSaleDealDate("");
+                    propertyToUpdate.setSaleDealDate(saleDealDate);
                     propertyToUpdate.setPropertyPrice(Integer.parseInt(binding.activityAddPropertyEdittextPrice.getText().toString()));
                     propertyToUpdate.setPropertySurface(Integer.parseInt(binding.activityAddPropertyEdittextSurface.getText().toString()));
                     propertyToUpdate.setRoomNumber(Integer.parseInt(binding.activityAddPropertyEdittextRoomNumber.getText().toString()));
                     propertyToUpdate.setBathroomNumber(Integer.parseInt(binding.activityAddPropertyEdittextBathroomNumber.getText().toString()));
                     propertyToUpdate.setBedroomNumber(Integer.parseInt(binding.activityAddPropertyEdittextBedroomNumber.getText().toString()));
-                    propertyToUpdate.setPropertySaleStatusId(1);
+                    if(isSoldChecked) {
+                        propertyToUpdate.setPropertySaleStatusId(2);
+                    } else {
+                        propertyToUpdate.setPropertySaleStatusId(1);
+                    }
 
                     updatePropertyViewModel.updateProperty(propertyToUpdate);
                     Toast.makeText(UpdatePropertyActivity.this, "Property updated !", Toast.LENGTH_SHORT).show();
@@ -546,5 +595,12 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
                 }
             }
         });
+    }
+
+    private String getDate() {
+        String datePattern = "dd/MM/yyyy";
+        DateFormat dateFormat = new SimpleDateFormat(datePattern, Locale.getDefault());
+        Date now = Calendar.getInstance().getTime();
+        return dateFormat.format(now);
     }
 }

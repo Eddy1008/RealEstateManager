@@ -11,4 +11,6 @@
 
     <color name="colorDeleteButton">#FFFF80</color>
     <color name="dialog_zoom_background">#52000000</color>
+    <color name="fragment_item_for_sale">#4BB144</color>
+    <color name="fragment_item_sold">#9A2828</color>
 </resources>

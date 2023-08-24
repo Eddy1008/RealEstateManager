@@ -19,7 +19,7 @@
     <string name="item_listview_price_example">$30,000,000</string>
     <string name="fragment_item_textview_media">Media</string>
     <string name="fragment_item_textview_description">Ceci est un exemple de description pour une propriété a vendre via cette application! il se peut que ce paragrahpe soit tres important! Ceci est un exemple de description pour une propriété a vendre via cette application! il se peut que ce paragrahpe soit tres important! Ceci est un exemple de description pour une propriété a vendre via cette application! il se peut que ce paragrahpe soit tres important!</string>
-    <string name="fragment_item_textview_description_title">Description</string>
+    <string name="fragment_item_textview_description_title">Description: </string>
     <string name="fragment_item_card_view_surface_title">Surface</string>
     <string name="fragment_item_card_view_surface_value">350m²</string>
     <string name="fragment_item_card_view_number_room_title">Number of rooms</string>
@@ -77,4 +77,13 @@
     <string name="dialog_search_title">Search properties :</string>
     <string name="dialog_search_button">SEARCH !</string>
     <string name="dialog_search_spinner_type_title">Select type:</string>
+    <string name="fragment_item_textview_type">TYPE</string>
+    <string name="fragment_item_textview_on_sale_date">24/12/2023</string>
+    <string name="fragment_item_textview_on_sale_date_title">post date: </string>
+    <string name="fragment_item_textview_by_title">by: </string>
+    <string name="fragment_item_textview_agent">Eddy</string>
+    <string name="fragment_item_textview_sold_on">31/12/2023</string>
+    <string name="fragment_item_textview_sold_on_title">SOLD ON: </string>
+    <string name="fragment_item_sale_status">FOR SALE</string>
+    <string name="activity_add_property_for_sale_switch">For sale? </string>
 </resources>
