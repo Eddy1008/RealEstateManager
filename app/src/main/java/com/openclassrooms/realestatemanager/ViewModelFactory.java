@@ -59,19 +59,19 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(UpdatePropertyViewModel.class)) {
-            return (T) new UpdatePropertyViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertySaleStatusRepository, propertyTypeRepository, realEstateAgentRepository, executor);
+            return (T) new UpdatePropertyViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertyTypeRepository, realEstateAgentRepository, executor);
         }
 
         if (modelClass.isAssignableFrom(DetailViewModel.class)) {
-            return (T) new DetailViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertySaleStatusRepository, propertyTypeRepository, realEstateAgentRepository, executor);
+            return (T) new DetailViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertySaleStatusRepository, propertyTypeRepository, realEstateAgentRepository);
         }
 
         if (modelClass.isAssignableFrom(AddPropertyViewModel.class)) {
-            return (T) new AddPropertyViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertySaleStatusRepository, propertyTypeRepository, realEstateAgentRepository, executor);
+            return (T) new AddPropertyViewModel(pointOfInterestNearbyRepository, propertyPhotoRepository, propertyRepository, propertyTypeRepository, realEstateAgentRepository, executor);
         }
 
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
-            return (T) new MainViewModel(propertyRepository, propertyTypeRepository, realEstateAgentRepository, executor);
+            return (T) new MainViewModel(propertyRepository, propertyTypeRepository, realEstateAgentRepository);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class");

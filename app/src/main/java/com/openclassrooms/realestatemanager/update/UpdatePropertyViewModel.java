@@ -27,7 +27,6 @@ public class UpdatePropertyViewModel extends ViewModel {
     private final PointOfInterestNearbyRepository pointOfInterestNearbyRepository;
     private final PropertyPhotoRepository propertyPhotoRepository;
     private final PropertyRepository propertyRepository;
-    private final PropertySaleStatusRepository propertySaleStatusRepository;
     private final PropertyTypeRepository propertyTypeRepository;
     private final RealEstateAgentRepository realEstateAgentRepository;
     private final Executor executor;
@@ -46,14 +45,12 @@ public class UpdatePropertyViewModel extends ViewModel {
     public UpdatePropertyViewModel(PointOfInterestNearbyRepository pointOfInterestNearbyRepository,
                                    PropertyPhotoRepository propertyPhotoRepository,
                                    PropertyRepository propertyRepository,
-                                   PropertySaleStatusRepository propertySaleStatusRepository,
                                    PropertyTypeRepository propertyTypeRepository,
                                    RealEstateAgentRepository realEstateAgentRepository,
                                    Executor executor) {
         this.pointOfInterestNearbyRepository = pointOfInterestNearbyRepository;
         this.propertyPhotoRepository = propertyPhotoRepository;
         this.propertyRepository = propertyRepository;
-        this.propertySaleStatusRepository = propertySaleStatusRepository;
         this.propertyTypeRepository = propertyTypeRepository;
         this.realEstateAgentRepository = realEstateAgentRepository;
         this.executor = executor;
@@ -92,14 +89,6 @@ public class UpdatePropertyViewModel extends ViewModel {
     // ************************
     // ******* PROPERTY *******
     // ************************
-
-    public void setPropertyToUpdate(Property property) {
-        propertyToUpdate.setValue(property);
-    }
-
-    public LiveData<Property> getMyPropertyToUpdate() {
-        return this.propertyToUpdate;
-    }
 
     public void updateProperty(Property property) {
         executor.execute(() -> propertyRepository.updateProperty(property));
@@ -203,5 +192,4 @@ public class UpdatePropertyViewModel extends ViewModel {
     public void deletePropertyPhoto(PropertyPhoto propertyPhoto) {
         executor.execute(() -> propertyPhotoRepository.deletePropertyPhoto(propertyPhoto.getId()));
     }
-
 }

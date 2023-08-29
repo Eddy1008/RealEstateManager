@@ -26,7 +26,6 @@ public class AddPropertyViewModel extends ViewModel {
     private final PointOfInterestNearbyRepository pointOfInterestNearbyRepository;
     private final PropertyPhotoRepository propertyPhotoRepository;
     private final PropertyRepository propertyRepository;
-    private final PropertySaleStatusRepository propertySaleStatusRepository;
     private final PropertyTypeRepository propertyTypeRepository;
     private final RealEstateAgentRepository realEstateAgentRepository;
     private final Executor executor;
@@ -43,14 +42,12 @@ public class AddPropertyViewModel extends ViewModel {
     public AddPropertyViewModel(PointOfInterestNearbyRepository pointOfInterestNearbyRepository,
                                 PropertyPhotoRepository propertyPhotoRepository,
                                 PropertyRepository propertyRepository,
-                                PropertySaleStatusRepository propertySaleStatusRepository,
                                 PropertyTypeRepository propertyTypeRepository,
                                 RealEstateAgentRepository realEstateAgentRepository,
                                 Executor executor) {
         this.pointOfInterestNearbyRepository = pointOfInterestNearbyRepository;
         this.propertyPhotoRepository = propertyPhotoRepository;
         this.propertyRepository = propertyRepository;
-        this.propertySaleStatusRepository = propertySaleStatusRepository;
         this.propertyTypeRepository = propertyTypeRepository;
         this.realEstateAgentRepository = realEstateAgentRepository;
         this.executor = executor;

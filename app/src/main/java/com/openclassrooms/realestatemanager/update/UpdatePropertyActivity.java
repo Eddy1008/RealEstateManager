@@ -132,7 +132,6 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
         Intent intent = getIntent();
         Bundle myBundle = intent.getBundleExtra("BUNDLE_ITEM_TO_UPDATE");
         propertyToUpdate = (Property) myBundle.get("PROPERTY_ITEM_TO_UPDATE");
-        updatePropertyViewModel.setPropertyToUpdate(propertyToUpdate);
 
         updatePropertyViewModel.initPointOfInterestList(propertyToUpdate.getId());
         updatePropertyViewModel.initPropertyPhotoList(propertyToUpdate.getId());

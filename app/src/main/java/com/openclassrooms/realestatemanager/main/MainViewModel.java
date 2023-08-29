@@ -27,17 +27,14 @@ public class MainViewModel extends ViewModel {
     private final PropertyRepository propertyRepository;
     private final PropertyTypeRepository propertyTypeRepository;
     private final RealEstateAgentRepository realEstateAgentRepository;
-    private final Executor executor;
 
     // Constructor
     public MainViewModel(PropertyRepository propertyRepository,
                          PropertyTypeRepository propertyTypeRepository,
-                         RealEstateAgentRepository realEstateAgentRepository,
-                         Executor executor) {
+                         RealEstateAgentRepository realEstateAgentRepository) {
         this.propertyRepository = propertyRepository;
         this.propertyTypeRepository = propertyTypeRepository;
         this.realEstateAgentRepository = realEstateAgentRepository;
-        this.executor = executor;
     }
 
     // Data
@@ -78,7 +75,6 @@ public class MainViewModel extends ViewModel {
             String mySearchRequestBedroom, String mySearchRequestPrice, String mySearchRequestTypeId, String mySearchRequestAgentId) {
 
         propertyList = propertyRepository.getPropertyBySpecifiedOptions(mySearchRequestTitle, mySearchRequestAddress, mySearchRequestSurfaceMin, mySearchRequestSurfaceMax, mySearchRequestRoom, mySearchRequestBathroom, mySearchRequestBedroom, mySearchRequestPrice, mySearchRequestTypeId, mySearchRequestAgentId);
-        Log.d("TAG", "ViewModel : getFilteredPropertyList: List with parameters !!!!");
         mergedPropertyListLiveData.addSource(propertyList, newData -> {
                     mergedPropertyListLiveData.setValue(newData);
         });

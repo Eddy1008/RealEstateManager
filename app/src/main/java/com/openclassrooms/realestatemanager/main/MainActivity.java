@@ -1,7 +1,9 @@
 package com.openclassrooms.realestatemanager.main;
 
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,10 +19,12 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.Utils;
 import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.add.AddPropertyActivity;
 import com.openclassrooms.realestatemanager.add.PropertyTypeAdapter;
 import com.openclassrooms.realestatemanager.add.RealEstateAgentAdapter;
+import com.openclassrooms.realestatemanager.contentprovider.PropertyProvider;
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding;
 import com.openclassrooms.realestatemanager.detail.DetailActivity;
 import com.openclassrooms.realestatemanager.detail.ui.itemtodetail.ItemFragment;
@@ -111,8 +115,6 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                // TODO localise me button
-                // TODO content provider
                 Toast.makeText(MainActivity.this, "Will redirect to allow geo localisation activity !", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -132,8 +134,54 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+
                 Toast.makeText(MainActivity.this, "Hello you !", Toast.LENGTH_SHORT).show();
-                return false;
+                Log.d("TAG", "onClick: " + PropertyProvider.CONTENT_URI);
+                ContentResolver contentResolver = getContentResolver();
+                Cursor cursor = contentResolver.query(PropertyProvider.CONTENT_URI, null, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    do {
+                        // Récupérer les données à partir du Cursor
+                        long id = cursor.getLong(cursor.getColumnIndexOrThrow("id"));
+                        String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                        String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+                        String mainPhoto = cursor.getString(cursor.getColumnIndexOrThrow("mainPhoto"));
+                        String propertyDescription = cursor.getString(cursor.getColumnIndexOrThrow("propertyDescription"));
+                        String onSaleDate = cursor.getString(cursor.getColumnIndexOrThrow("onSaleDate"));
+                        String saleDealDate = cursor.getString(cursor.getColumnIndexOrThrow("saleDealDate"));
+                        int propertyPrice = cursor.getInt(cursor.getColumnIndexOrThrow("propertyPrice"));
+                        int propertySurface = cursor.getInt(cursor.getColumnIndexOrThrow("propertySurface"));
+                        int roomNumber = cursor.getInt(cursor.getColumnIndexOrThrow("roomNumber"));
+                        int bathroomNumber = cursor.getInt(cursor.getColumnIndexOrThrow("bathroomNumber"));
+                        int bedroomNumber = cursor.getInt(cursor.getColumnIndexOrThrow("bedroomNumber"));
+                        long propertyTypeId = cursor.getLong(cursor.getColumnIndexOrThrow("propertyTypeId"));
+                        long propertySaleStatusId = cursor.getLong(cursor.getColumnIndexOrThrow("propertySaleStatusId"));
+                        long realEstateAgentId = cursor.getLong(cursor.getColumnIndexOrThrow("realEstateAgentId"));
+
+                        // Afficher ou traiter les données récupérées
+                        Log.d("TAG", "Property - ID: " + id + ", \n Title: " + title + ", \n address: " + address + ", \n mainPhoto: " + mainPhoto +
+                                ", \n propertyDescription: " + propertyDescription + ", \n onSaleDate: " + onSaleDate + ", \n saleDealDate: " + saleDealDate +
+                                ", \n propertyPrice: " + propertyPrice + ", \n propertySurface: " + propertySurface + ", \n roomNumber: " + roomNumber +
+                                ", \n bathroomNumber: " + bathroomNumber + ", \n bedroomNumber: " + bedroomNumber + ", \n propertyTypeId: " + propertyTypeId +
+                                ", \n propertySaleStatusId: " + propertySaleStatusId + ", \n realEstateAgentId: " + realEstateAgentId);
+                    } while (cursor.moveToNext());
+
+                    cursor.close();
+                } else {
+                    Log.d("TAG", "No data available.");
+                }
+
+
+                /**
+                 // TODO Connectivity manager
+                 if (Utils.isInternetConnectionAvailable(MainActivity.this)) {
+                 Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+                 } else {
+                 Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
+                 }
+                 */
+
+                 return false;
             }
         });
     }

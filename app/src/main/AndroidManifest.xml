@@ -2,12 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.openclassrooms.realestatemanager">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <permission android:name="com.openclassrooms.permission.READ"
+        android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -16,7 +20,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -59,6 +62,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <provider
+            android:authorities="com.openclassrooms.realestatemanager.contentprovider.PropertyProvider"
+            android:name=".contentprovider.PropertyProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:writePermission="com.openclassrooms.permission.READ"
+            android:readPermission="com.openclassrooms.permission.READ" />
     </application>
 
 </manifest>

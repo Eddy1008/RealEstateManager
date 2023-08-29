@@ -29,7 +29,6 @@ public class DetailViewModel extends ViewModel {
     private final PropertySaleStatusRepository propertySaleStatusRepository;
     private final PropertyTypeRepository propertyTypeRepository;
     private final RealEstateAgentRepository realEstateAgentRepository;
-    private final Executor executor;
 
     // DATA
     private LiveData<List<PointOfInterestNearby>> pointOfInterestList;
@@ -44,15 +43,13 @@ public class DetailViewModel extends ViewModel {
                            PropertyRepository propertyRepository,
                            PropertySaleStatusRepository propertySaleStatusRepository,
                            PropertyTypeRepository propertyTypeRepository,
-                           RealEstateAgentRepository realEstateAgentRepository,
-                           Executor executor) {
+                           RealEstateAgentRepository realEstateAgentRepository) {
         this.pointOfInterestNearbyRepository = pointOfInterestNearbyRepository;
         this.propertyPhotoRepository = propertyPhotoRepository;
         this.propertyRepository = propertyRepository;
         this.propertySaleStatusRepository = propertySaleStatusRepository;
         this.propertyTypeRepository = propertyTypeRepository;
         this.realEstateAgentRepository = realEstateAgentRepository;
-        this.executor = executor;
     }
 
     // ************************
