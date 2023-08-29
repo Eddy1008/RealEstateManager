@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/item_listview_photo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/item_listview_photo" />
+
+    <TextView
+        android:id="@+id/item_listview_textview_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/item_listview_text_example"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="@+id/item_listview_photo"
+        app:layout_constraintStart_toEndOf="@+id/item_listview_photo"/>
+
+    <TextView
+        android:id="@+id/item_listview_textview_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:text="@string/item_listview_text_example"
+        android:textStyle="italic"
+        android:textSize="10sp"
+        app:layout_constraintTop_toBottomOf="@+id/item_listview_textview_type"
+        app:layout_constraintBottom_toTopOf="@+id/item_listview_textview_price"
+        app:layout_constraintStart_toEndOf="@+id/item_listview_photo"/>
+
+    <TextView
+        android:id="@+id/item_listview_textview_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/item_listview_price_example"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/item_listview_photo"
+        app:layout_constraintBottom_toBottomOf="@id/item_listview_photo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

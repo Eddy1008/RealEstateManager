@@ -1,11 +1,7 @@
 package com.openclassrooms.realestatemanager;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -37,7 +33,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Executor;
 
 public class UpdatePropertyViewModelTest {
@@ -188,16 +183,6 @@ public class UpdatePropertyViewModelTest {
     }
 
     @Test
-    public void testAddNewPointOfInterest() {
-        // TODO
-    }
-
-    @Test
-    public void testRemovePointOfInterest() {
-        // TODO
-    }
-
-    @Test
     public void testAddPointOfInterest() {
         PointOfInterestNearby testPointOfInterest = new PointOfInterestNearby("test", "abcd", 1);
         updatePropertyViewModel.addPointOfInterest(testPointOfInterest);
@@ -230,16 +215,6 @@ public class UpdatePropertyViewModelTest {
     }
 
     @Test
-    public void testAddNewPropertyPhoto() {
-        // TODO
-    }
-
-    @Test
-    public void testRemovePropertyPhoto() {
-        // TODO
-    }
-
-    @Test
     public void testAddPropertyPhoto() {
         PropertyPhoto testPropertyPhoto = new PropertyPhoto("test", "abcd", 1);
         updatePropertyViewModel.addPropertyPhoto(testPropertyPhoto);
@@ -254,6 +229,4 @@ public class UpdatePropertyViewModelTest {
         verify(propertyPhotoRepository).deletePropertyPhoto(testPropertyPhoto.getId());
         verify(executor).execute(any(Runnable.class));
     }
-
-
 }

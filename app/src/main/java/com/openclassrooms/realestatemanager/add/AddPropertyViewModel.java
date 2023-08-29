@@ -12,7 +12,6 @@ import com.openclassrooms.realestatemanager.model.RealEstateAgent;
 import com.openclassrooms.realestatemanager.repositories.PointOfInterestNearbyRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyPhotoRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyRepository;
-import com.openclassrooms.realestatemanager.repositories.PropertySaleStatusRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyTypeRepository;
 import com.openclassrooms.realestatemanager.repositories.RealEstateAgentRepository;
 

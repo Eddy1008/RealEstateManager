@@ -1,25 +1,18 @@
 package com.openclassrooms.realestatemanager.main;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.openclassrooms.realestatemanager.model.PointOfInterestNearby;
 import com.openclassrooms.realestatemanager.model.Property;
 import com.openclassrooms.realestatemanager.model.PropertyType;
 import com.openclassrooms.realestatemanager.model.RealEstateAgent;
-import com.openclassrooms.realestatemanager.repositories.PointOfInterestNearbyRepository;
-import com.openclassrooms.realestatemanager.repositories.PropertyPhotoRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyRepository;
-import com.openclassrooms.realestatemanager.repositories.PropertySaleStatusRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyTypeRepository;
 import com.openclassrooms.realestatemanager.repositories.RealEstateAgentRepository;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 public class MainViewModel extends ViewModel {
 
@@ -46,7 +39,6 @@ public class MainViewModel extends ViewModel {
         return isTwoPaneMode;
     }
     private LiveData<List<Property>> propertyList;
-    private final MutableLiveData<List<Property>> filteredListMutableLiveData = new MutableLiveData<>();
     private LiveData<List<PropertyType>> propertyTypeList;
     private LiveData<List<RealEstateAgent>> realEstateAgentList;
     private final MediatorLiveData<List<Property>> mergedPropertyListLiveData = new MediatorLiveData<>();

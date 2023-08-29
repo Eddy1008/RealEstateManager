@@ -42,7 +42,7 @@ public class ListviewItemViewHolder extends RecyclerView.ViewHolder {
     public void bind(Property property, List<PropertyType> propertyTypeList, boolean isTwoPane) {
         Glide.with(this.itemPhoto.getContext())
                 .load(property.getMainPhoto())
-                .apply(RequestOptions.circleCropTransform())
+                .apply(RequestOptions.centerCropTransform())
                 .into(itemPhoto);
 
         for (PropertyType propertyType : propertyTypeList) {

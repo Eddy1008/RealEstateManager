@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.customview;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -45,8 +44,7 @@ public class DeleteButtonImageView extends AppCompatImageView {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Gère l'action de suppression ici
-                // Par exemple : appelle une fonction pour supprimer l'élément associé à cette vue
+
             }
         });
     }

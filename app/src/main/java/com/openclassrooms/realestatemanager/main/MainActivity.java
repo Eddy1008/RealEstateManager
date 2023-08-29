@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,8 +25,6 @@ import com.openclassrooms.realestatemanager.add.PropertyTypeAdapter;
 import com.openclassrooms.realestatemanager.add.RealEstateAgentAdapter;
 import com.openclassrooms.realestatemanager.contentprovider.PropertyProvider;
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding;
-import com.openclassrooms.realestatemanager.detail.DetailActivity;
-import com.openclassrooms.realestatemanager.detail.ui.itemtodetail.ItemFragment;
 import com.openclassrooms.realestatemanager.model.PropertyType;
 import com.openclassrooms.realestatemanager.model.RealEstateAgent;
 
@@ -109,19 +106,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        checkIfLandscape(savedInstanceState);
-
-        // Set Localise Me Button !!
-        binding.navView.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                Toast.makeText(MainActivity.this, "Will redirect to allow geo localisation activity !", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
+        checkIfLandscape();
 
         // Set Add Property Button !!
-        binding.navView.getMenu().getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        binding.navView.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
                 Intent intent = new Intent(MainActivity.this, AddPropertyActivity.class);
@@ -130,8 +118,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set Hello You Button !!
+        // Set Localise Me Button !!
         binding.navView.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                 if (Utils.isInternetConnectionAvailable(MainActivity.this)) {
+                    Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+                 } else {
+                    Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
+                 }
+                return false;
+            }
+        });
+
+        // Set Hello You Button !!
+        binding.navView.getMenu().getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
 
@@ -141,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
                 Cursor cursor = contentResolver.query(PropertyProvider.CONTENT_URI, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
                     do {
-                        // Récupérer les données à partir du Cursor
                         long id = cursor.getLong(cursor.getColumnIndexOrThrow("id"));
                         String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
                         String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
                         long propertySaleStatusId = cursor.getLong(cursor.getColumnIndexOrThrow("propertySaleStatusId"));
                         long realEstateAgentId = cursor.getLong(cursor.getColumnIndexOrThrow("realEstateAgentId"));
 
-                        // Afficher ou traiter les données récupérées
                         Log.d("TAG", "Property - ID: " + id + ", \n Title: " + title + ", \n address: " + address + ", \n mainPhoto: " + mainPhoto +
                                 ", \n propertyDescription: " + propertyDescription + ", \n onSaleDate: " + onSaleDate + ", \n saleDealDate: " + saleDealDate +
                                 ", \n propertyPrice: " + propertyPrice + ", \n propertySurface: " + propertySurface + ", \n roomNumber: " + roomNumber +
@@ -170,28 +169,13 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.d("TAG", "No data available.");
                 }
-
-
-                /**
-                 // TODO Connectivity manager
-                 if (Utils.isInternetConnectionAvailable(MainActivity.this)) {
-                 Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
-                 } else {
-                 Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
-                 }
-                 */
-
                  return false;
             }
         });
     }
 
-    private void checkIfLandscape(Bundle savedInstanceState) {
-        if (binding.appBarMain.contentMain.mainActivityLandscapeDetailedItemView != null) {
-            mainViewModel.setIsTwoPaneMode(true);
-        } else {
-            mainViewModel.setIsTwoPaneMode(false);
-        }
+    private void checkIfLandscape() {
+        mainViewModel.setIsTwoPaneMode(binding.appBarMain.contentMain.mainActivityLandscapeDetailedItemView != null);
     }
 
     @Override

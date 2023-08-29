@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +20,7 @@ public class PointOfInterestAdapter extends RecyclerView.Adapter<PointOfInterest
     @NonNull
     private final DeletePointOfInterestListener deletePointOfInterestListener;
 
-    public PointOfInterestAdapter(List<PointOfInterestNearby> pointOfInterestList, DeletePointOfInterestListener deletePointOfInterestListener) {
+    public PointOfInterestAdapter(List<PointOfInterestNearby> pointOfInterestList, @NonNull DeletePointOfInterestListener deletePointOfInterestListener) {
         this.pointOfInterestList = pointOfInterestList;
         this.deletePointOfInterestListener = deletePointOfInterestListener;
     }

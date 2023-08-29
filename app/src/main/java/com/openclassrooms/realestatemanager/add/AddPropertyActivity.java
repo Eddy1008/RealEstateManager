@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
@@ -261,7 +260,7 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
             if (propertyPhotoDescription.trim().isEmpty()) {
                 dialogPropertyPhotoEditTextDescription.setError(getString(R.string.dialog_property_photo_description_error));
             } else if (pictureToAdd == null) {
-                Toast.makeText(this, "Please take or select a photo !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.add_property_no_choice_photo), Toast.LENGTH_SHORT).show();
             } else {
                 pictureToAdd.setPhotoDescription(dialogPropertyPhotoEditTextDescription.getText().toString());
                 addPropertyPhoto(pictureToAdd);
@@ -290,7 +289,7 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 takePictureIntent();
             } else {
-                Toast.makeText(this, "You didn't allow the app to take pictures !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.add_property_allow_app_take_photo), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -477,7 +476,7 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
                 } else if (binding.activityAddPropertyEdittextPrice.getText().toString().equals("")) {
                     binding.activityAddPropertyEdittextPrice.setError(getString(R.string.add_property_price_error));
                 } else if (propertyPhotoList.size() == 0) {
-                    Toast.makeText(AddPropertyActivity.this, "Please add photo to your property !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPropertyActivity.this, getString(R.string.add_property_add_photo), Toast.LENGTH_SHORT).show();
                 } else {
                     // Create a property
                     Property property = new Property(
@@ -508,7 +507,7 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
                                 PropertyPhoto newPhoto = new PropertyPhoto(photo.getPhotoUrl(), photo.getPhotoDescription(), insertedId);
                                 addPropertyViewModel.addPropertyPhoto(newPhoto);
                             }
-                            Toast.makeText(AddPropertyActivity.this, "Nouvel élément créé : ID " + insertedId , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddPropertyActivity.this, getString(R.string.add_property_done) + insertedId , Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     });

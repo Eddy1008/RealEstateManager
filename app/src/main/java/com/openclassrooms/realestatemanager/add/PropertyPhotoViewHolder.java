@@ -13,8 +13,8 @@ import com.openclassrooms.realestatemanager.model.PropertyPhoto;
 
 public class PropertyPhotoViewHolder extends RecyclerView.ViewHolder {
 
-    private DeleteButtonImageView deletePicture;
-    private ImageView picture;
+    private final DeleteButtonImageView deletePicture;
+    private final ImageView picture;
 
     private final PropertyPhotoAdapter.DeletePropertyPhotoListener deletePropertyPhotoListener;
 

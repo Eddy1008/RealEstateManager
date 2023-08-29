@@ -18,7 +18,6 @@ import com.openclassrooms.realestatemanager.repositories.PropertyTypeRepository;
 import com.openclassrooms.realestatemanager.repositories.RealEstateAgentRepository;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 public class DetailViewModel extends ViewModel {
 

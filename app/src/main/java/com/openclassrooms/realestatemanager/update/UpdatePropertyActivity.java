@@ -15,7 +15,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,7 +61,7 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
     private List<PropertyType> propertyTypeList;
     private List<RealEstateAgent> realEstateAgentList;
 
-    private List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
+    private final List<PointOfInterestNearby> pointOfInterestList = new ArrayList<>();
     private List<PropertyPhoto> propertyPhotoList = new ArrayList<>();
 
     private boolean isSoldChecked;
@@ -106,8 +105,8 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
         binding = ActivityAddPropertyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.activityAddPropertyAddButton.setText("UPDATE");
-        binding.activityAddPropertyTextviewTitle.setText("UPDATE THE PROPERTY");
+        binding.activityAddPropertyAddButton.setText(getString(R.string.update_property_update_button));
+        binding.activityAddPropertyTextviewTitle.setText(R.string.update_property_title);
         binding.activityAddPropertyForSaleSwitch.setVisibility(View.VISIBLE);
 
         updatePropertyViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(UpdatePropertyViewModel.class);

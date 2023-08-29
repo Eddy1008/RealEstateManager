@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PropertyTypeAdapter extends ArrayAdapter<PropertyType> {
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
     public PropertyTypeAdapter(Context context, List<PropertyType> propertyTypes) {
         super(context, 0, propertyTypes);
@@ -31,7 +31,7 @@ public class PropertyTypeAdapter extends ArrayAdapter<PropertyType> {
     }
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+    public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
         return createItemView(position, convertView, parent);
     }
 

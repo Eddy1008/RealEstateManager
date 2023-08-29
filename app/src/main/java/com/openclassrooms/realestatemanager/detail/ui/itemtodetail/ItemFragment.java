@@ -34,6 +34,7 @@ import com.openclassrooms.realestatemanager.update.UpdatePropertyActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ItemFragment extends Fragment {
 
@@ -54,7 +55,6 @@ public class ItemFragment extends Fragment {
 
     private Property item;
     private String itemLocation;
-    private String itemMiniMapUrl;
 
     public ItemFragment() {
     }
@@ -122,12 +122,12 @@ public class ItemFragment extends Fragment {
                 }
             }
             if (propertyStatutName.equals("Sold")) {
-                int color = ContextCompat.getColor(getContext(), R.color.fragment_item_sold);
+                int color = ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.fragment_item_sold);
                 binding.fragmentItemSaleStatus.setTextColor(color);
                 binding.fragmentItemTextviewSoldTitle.setVisibility(View.VISIBLE);
                 binding.fragmentItemTextviewSoldDate.setVisibility(View.VISIBLE);
             } else {
-                int color = ContextCompat.getColor(getContext(), R.color.fragment_item_for_sale);
+                int color = ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.fragment_item_for_sale);
                 binding.fragmentItemSaleStatus.setTextColor(color);
                 binding.fragmentItemSaleStatus.setText(propertyStatutName);
                 binding.fragmentItemTextviewSoldTitle.setVisibility(View.GONE);
@@ -175,7 +175,7 @@ public class ItemFragment extends Fragment {
 
     private void configurePropertyPhotoRecyclerView() {
         propertyPhotoRecyclerView = binding.fragmentItemPropertyPhotoRecyclerview;
-        propertyPhotoRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
+        propertyPhotoRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.HORIZONTAL));
         detailViewModel.getPropertyPhotoListByPropertyId().observe(getViewLifecycleOwner(), propertyPhotos -> {
             propertyPhotoList = propertyPhotos;
             propertyPhotoAdapter = new PropertyPhotoAdapter(propertyPhotoList);
@@ -186,7 +186,7 @@ public class ItemFragment extends Fragment {
     private void configurePointOfInterestRecyclerView() {
         pointOfInterestRecyclerView = binding.fragmentItemPointOfInterestRecyclerview;
         pointOfInterestRecyclerView.setLayoutManager(new LinearLayoutManager(pointOfInterestRecyclerView.getContext()));
-        pointOfInterestRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        pointOfInterestRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
         detailViewModel.getPointOfInterestListByPropertyId().observe(getViewLifecycleOwner(), pointOfInterestNearbies -> {
             pointOfInterestList = pointOfInterestNearbies;
             pointOfInterestAdapter = new PointOfInterestAdapter(pointOfInterestList);
@@ -197,7 +197,7 @@ public class ItemFragment extends Fragment {
     }
 
     private void configureMiniMap(List<PointOfInterestNearby> pointOfInterestList) {
-        itemMiniMapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + itemLocation + "&zoom=16&size=400x400"
+        String itemMiniMapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + itemLocation + "&zoom=16&size=400x400"
                 + "&markers=color:blue%7Clabel:S%7C" + itemLocation;
         char alphabet = 'A';
         for (int i=0; i<pointOfInterestList.size(); i++) {

@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RealEstateAgentAdapter extends ArrayAdapter<RealEstateAgent> {
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
     public RealEstateAgentAdapter(Context context, List<RealEstateAgent> realEstateAgents) {
         super(context, 0, realEstateAgents);

@@ -14,7 +14,7 @@ public class UtilsTest {
     @Test
     public void testConvertDollarToEuro() {
         int dollars = 100;
-        int expectedEuro = 81;  // 81.2 arrondi au int le plus proche, 81
+        int expectedEuro = 81;  // 81.2 -> 81
 
         int actualEuro = Utils.convertDollarToEuro(dollars);
 
@@ -24,7 +24,7 @@ public class UtilsTest {
     @Test
     public void testConvertEuroToDollar() {
         int euros = 100;
-        int expectedDollars = 119;  // 118.8 arrondi au int le plus proche, 119
+        int expectedDollars = 119;  // 118.8 -> 119
 
         int actualDollars = Utils.convertEuroToDollar(euros);
 

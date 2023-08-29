@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PropertyPhotoAdapter extends RecyclerView.Adapter<PropertyPhotoViewHolder> {
 
-    private List<PropertyPhoto> propertyPhotoList;
+    private final List<PropertyPhoto> propertyPhotoList;
 
     public PropertyPhotoAdapter(List<PropertyPhoto> propertyPhotoList) {
         this.propertyPhotoList = propertyPhotoList;

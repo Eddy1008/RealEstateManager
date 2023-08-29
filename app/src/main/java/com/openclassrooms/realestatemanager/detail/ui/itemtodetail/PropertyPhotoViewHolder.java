@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.detail.ui.itemtodetail;
 
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -58,7 +57,9 @@ public class PropertyPhotoViewHolder extends RecyclerView.ViewHolder {
         dialogZoomPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                propertyPhotoDialog.dismiss();
+                if (propertyPhotoDialog != null) {
+                    propertyPhotoDialog.dismiss();
+                }
             }
         });
 

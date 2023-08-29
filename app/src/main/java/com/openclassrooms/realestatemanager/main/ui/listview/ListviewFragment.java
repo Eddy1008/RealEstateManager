@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.FragmentListviewBinding;
 import com.openclassrooms.realestatemanager.main.MainViewModel;
-import com.openclassrooms.realestatemanager.model.MyItemTest;
 import com.openclassrooms.realestatemanager.model.Property;
 import com.openclassrooms.realestatemanager.model.PropertyType;
 

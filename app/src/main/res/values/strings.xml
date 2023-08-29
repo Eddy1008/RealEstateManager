@@ -8,8 +8,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_search">Search</string>
 
-    <string name="menu_geo_localisation">Localise me</string>
-    <string name="menu_text_me">Hello you !</string>
+    <string name="connectivity_test">Test my connexion</string>
+    <string name="content_provider_test">Test my Content Provider</string>
     <string name="menu_listview">LISTVIEW</string>
     <string name="menu_mapview">MAPVIEW</string>
     <string name="menu_itemview">ITEMVIEW</string>
@@ -86,4 +86,10 @@
     <string name="fragment_item_textview_sold_on_title">SOLD ON: </string>
     <string name="fragment_item_sale_status">FOR SALE</string>
     <string name="activity_add_property_for_sale_switch">For sale? </string>
+    <string name="add_property_no_choice_photo">Please take or select a photo !</string>
+    <string name="add_property_allow_app_take_photo">You didn\'t allow the app to take pictures !</string>
+    <string name="add_property_add_photo">Please add photo to your property !</string>
+    <string name="add_property_done">"New property added ! id: "</string>
+    <string name="update_property_update_button">UPDATE</string>
+    <string name="update_property_title">UPDATE THE PROPERTY</string>
 </resources>

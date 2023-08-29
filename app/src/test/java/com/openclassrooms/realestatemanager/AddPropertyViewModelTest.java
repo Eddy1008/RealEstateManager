@@ -143,14 +143,12 @@ public class AddPropertyViewModelTest {
 
     @Test
     public void testInsertPropertyAndGetId() {
-        // Créer un objet Property de test
         Property testProperty = new Property(
                 "test A", "abcd", "efgh",
                 "ijkl", "01/01/2013","01/01/2024",
                 250000, 95, 6, 1, 3,
                 1, 1, 1);
 
-        // Configurer l'attente pour la méthode createProperty du propertyRepository
         MutableLiveData<Long> mockInsertedPropertyId = new MutableLiveData<>();
         long expectedPropertyId = 123;
         mockInsertedPropertyId.setValue(expectedPropertyId);
@@ -166,27 +164,18 @@ public class AddPropertyViewModelTest {
 
     @Test
     public void testAddAndDeletePointOfInterest() {
-        // Créer un point d'intérêt de test
         PointOfInterestNearby testPointOfInterest = new PointOfInterestNearby("test", "abcd", 1);
-        // Appeler la méthode addPointOfInterestToAddList
         addPropertyViewModel.addPointOfInterestToAddList(testPointOfInterest);
-        // Vérifier que la liste de points d'intérêt a été mise à jour
         assertTrue(addPropertyViewModel.getListOfPointOfInterestToAdd().getValue().contains(testPointOfInterest));
-        // Appeler la méthode deletePointOfInterestToAddList
         addPropertyViewModel.deletePointOfInterestToAddList(testPointOfInterest);
-        // Vérifier que le point d'intérêt a été supprimé de la liste
         assertFalse(addPropertyViewModel.getListOfPointOfInterestToAdd().getValue().contains(testPointOfInterest));
     }
 
     @Test
     public void testAddPointOfInterest() {
-        // Créer un point d'intérêt de test
         PointOfInterestNearby testPointOfInterest = new PointOfInterestNearby("test", "abcd", 1);
-        // Appeler la méthode à tester
         addPropertyViewModel.addPointOfInterest(testPointOfInterest);
-        // Vérifier que la méthode createPointOfInterest du repository a été appelée avec le point d'intérêt de test
         verify(pointOfInterestNearbyRepository).createPointOfInterest(testPointOfInterest);
-        // Vérifier que l'Executor a été appelé pour exécuter la tâche
         verify(executor).execute(any(Runnable.class));
     }
 

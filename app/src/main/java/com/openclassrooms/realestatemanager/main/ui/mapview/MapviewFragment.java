@@ -115,7 +115,6 @@ public class MapviewFragment extends Fragment implements OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
 
         getPropertyList();
-
         getLocationPermission();
         updateLocationUI();
         getDeviceLocation();

@@ -13,7 +13,6 @@ import com.openclassrooms.realestatemanager.model.RealEstateAgent;
 import com.openclassrooms.realestatemanager.repositories.PointOfInterestNearbyRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyPhotoRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyRepository;
-import com.openclassrooms.realestatemanager.repositories.PropertySaleStatusRepository;
 import com.openclassrooms.realestatemanager.repositories.PropertyTypeRepository;
 import com.openclassrooms.realestatemanager.repositories.RealEstateAgentRepository;
 
@@ -32,7 +31,6 @@ public class UpdatePropertyViewModel extends ViewModel {
     private final Executor executor;
 
     // DATA
-    private final MutableLiveData<Property> propertyToUpdate = new MutableLiveData<>();
     private LiveData<List<PropertyType>> propertyTypeList;
     private LiveData<List<RealEstateAgent>> realEstateAgentList;
 
