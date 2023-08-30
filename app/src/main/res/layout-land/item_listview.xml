@@ -22,7 +22,8 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/item_listview_text_example"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="@+id/item_listview_photo"
         app:layout_constraintStart_toEndOf="@+id/item_listview_photo"/>
 
@@ -33,7 +34,8 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:text="@string/item_listview_text_example"
         android:textStyle="italic"
-        android:textSize="10sp"
+        android:textSize="12sp"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/item_listview_textview_type"
         app:layout_constraintBottom_toTopOf="@+id/item_listview_textview_price"
         app:layout_constraintStart_toEndOf="@+id/item_listview_photo"/>
@@ -45,7 +47,8 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:text="@string/item_listview_price_example"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/item_listview_photo"
         app:layout_constraintBottom_toBottomOf="@id/item_listview_photo" />
 

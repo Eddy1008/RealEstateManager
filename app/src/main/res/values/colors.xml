@@ -4,12 +4,15 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFFFF</color>
 
     <color name="spinner_bottom_line">#1f000000</color>
     <color name="item_photo_description_background">#80A1A1A1</color>
+    <color name="item_update_button">#95FFFFFF</color>
+    <color name="item_card_view_background">#A6575757</color>
     <color name="item_point_of_interest_marker_background">#FFFF00</color>
 
-    <color name="colorDeleteButton">#FFFF80</color>
+    <color name="colorDeleteButton">#FFFFFFFF</color>
     <color name="dialog_zoom_background">#52000000</color>
     <color name="fragment_item_for_sale">#4BB144</color>
     <color name="fragment_item_sold">#9A2828</color>

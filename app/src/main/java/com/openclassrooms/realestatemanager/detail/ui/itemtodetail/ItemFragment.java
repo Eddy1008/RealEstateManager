@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.openclassrooms.realestatemanager.BuildConfig;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.Utils;
 import com.openclassrooms.realestatemanager.ViewModelFactory;
 import com.openclassrooms.realestatemanager.databinding.FragmentItemBinding;
 import com.openclassrooms.realestatemanager.detail.DetailViewModel;
@@ -109,6 +110,7 @@ public class ItemFragment extends Fragment {
             getRealEstateAgent();
             getPropertyType();
             setUpdateButton();
+
         });
     }
 
@@ -180,6 +182,7 @@ public class ItemFragment extends Fragment {
             propertyPhotoList = propertyPhotos;
             propertyPhotoAdapter = new PropertyPhotoAdapter(propertyPhotoList);
             propertyPhotoRecyclerView.setAdapter(propertyPhotoAdapter);
+            binding.fragmentDetailView.setVisibility(View.VISIBLE);
         });
     }
 
@@ -208,9 +211,16 @@ public class ItemFragment extends Fragment {
 
         itemMiniMapUrl = itemMiniMapUrl + "&key=" + BuildConfig.MAPS_API_KEY;
 
-        Glide.with(binding.fragmentItemCardViewMiniMap)
-                .load(itemMiniMapUrl)
-                .into(binding.fragmentItemCardViewMiniMap);
+        if (Utils.isInternetConnectionAvailable(this.getContext())) {
+            Glide.with(binding.fragmentItemCardViewMiniMap)
+                    .load(itemMiniMapUrl)
+                    .into(binding.fragmentItemCardViewMiniMap);
+            binding.fragmentItemCardViewThird.setVisibility(View.VISIBLE);
+        } else {
+            binding.fragmentItemCardViewThird.setVisibility(View.GONE);
+        }
+
+
     }
 
     public String convertAddressToLatLng(String address) {

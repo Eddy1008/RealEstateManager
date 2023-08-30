@@ -447,7 +447,9 @@ public class UpdatePropertyActivity extends AppCompatActivity implements PointOf
 
     public void displayPropertyPointOfInterestList() {
         RecyclerView recyclerView = binding.activityAddPropertyPointOfInterestRecyclerview;
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_listview_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
         PointOfInterestAdapter adapter = new PointOfInterestAdapter(pointOfInterestList, this);
         updatePropertyViewModel.getPointOfInterestList().observe(this, new Observer<List<PointOfInterestNearby>>() {
             @Override

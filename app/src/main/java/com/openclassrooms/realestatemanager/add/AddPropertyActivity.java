@@ -364,7 +364,9 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
 
     private void configurePointOfInterestRecyclerView() {
         RecyclerView recyclerView = binding.activityAddPropertyPointOfInterestRecyclerview;
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_listview_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
         adapter = new PointOfInterestAdapter(pointOfInterestList, this);
         addPropertyViewModel.getListOfPointOfInterestToAdd().observe(this, pointOfInterestNearbies -> {
             pointOfInterestList = pointOfInterestNearbies;

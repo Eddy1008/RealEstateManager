@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/item_spinner_real_estate_agent"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/edit_text_background"
         android:gravity="center"
         android:textColor="#ffffff"
-        android:textSize="20sp" />
+        android:textSize="28sp" />
 
 </LinearLayout>
