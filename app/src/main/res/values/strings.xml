@@ -69,12 +69,13 @@
     <string name="item_point_of_interest_address">123 rue des test 59000 LaMatrice</string>
     <string name="dialog_photo_title">Add a picture</string>
     <string name="dialog_add_picture_button">ADD PICTURE</string>
+    <string name="dialog_add_property_add_picture_title">ADD A PICTURE</string>
     <string name="dialog_property_photo_description_error">Please add a description</string>
     <string name="item_point_of_interest_marker_char">A</string>
     <string name="update_view">UPDATE_VIEW</string>
     <string name="fragment_item_update_button">UPDATE</string>
     <string name="action_localise_my_position">Localise me button</string>
-    <string name="dialog_search_title">Search properties :</string>
+    <string name="dialog_search_title">Research options :</string>
     <string name="dialog_search_button">SEARCH !</string>
     <string name="dialog_search_spinner_type_title">Select type:</string>
     <string name="fragment_item_textview_type">TYPE</string>
@@ -92,4 +93,19 @@
     <string name="add_property_done">"New property added ! id: "</string>
     <string name="update_property_update_button">UPDATE</string>
     <string name="update_property_title">UPDATE THE PROPERTY</string>
+    <string name="dialog_search_item_title">title</string>
+    <string name="dialog_search_item_address">address</string>
+    <string name="dialog_search_item_surface">surface (min)</string>
+    <string name="dialog_search_surface">m²</string>
+    <string name="dialog_search_item_surface_max">surface (max)</string>
+    <string name="dialog_search_item_room">Room</string>
+    <string name="dialog_search_number">number</string>
+    <string name="dialog_search_item_bathroom">Bathroom</string>
+    <string name="dialog_search_item_bedroom">Bedroom</string>
+    <string name="dialog_search_item_price">Price</string>
+    <string name="dialog_search_price_dollar">$$$</string>
+    <string name="dialog_add_property_take_picture_button">TAKE A PICTURE</string>
+    <string name="dialog_add_property_select_picture_button">SELECT A PICTURE</string>
+    <string name="dialog_add_picture">taken or selected picture</string>
+    <string name="dialog_add_picture_description">photo description</string>
 </resources>

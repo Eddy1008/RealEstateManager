@@ -7,27 +7,43 @@
     android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <EditText
-        android:id="@+id/dialog_edittext_name"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/dialog_point_of_interest_name"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/dialog_edittext_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/dialog_point_of_interest_address"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/spinner_bottom_line" />
+            <EditText
+                android:id="@+id/dialog_edittext_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/dialog_point_of_interest_name"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/dialog_edittext_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/dialog_point_of_interest_address"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/spinner_bottom_line" />
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
 
 </LinearLayout>

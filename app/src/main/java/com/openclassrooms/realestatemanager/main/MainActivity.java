@@ -268,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog getSearchDialog() {
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this, R.style.Dialog);
 
-        alertBuilder.setTitle(getString(R.string.dialog_search_title));
         alertBuilder.setView(R.layout.dialog_search_properties);
         alertBuilder.setPositiveButton(getString(R.string.dialog_search_button), null);
         alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {

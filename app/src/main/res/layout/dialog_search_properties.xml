@@ -4,262 +4,277 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/dialog_search_title"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Research options :"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/dialog_search_title_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="title"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_search_title"
-        app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_vertical_margin">
 
-    <EditText
-        android:id="@+id/dialog_search_title_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:padding="8dp"
-        android:hint="@string/activity_add_property_edittext_title"
-        android:autofillHints="name"
-        android:backgroundTint="@color/colorPrimary"
-        android:inputType="text"
-        app:layout_constraintTop_toTopOf="@id/dialog_search_title_textview"
-        app:layout_constraintStart_toEndOf="@id/dialog_search_title_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                android:id="@+id/dialog_search_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/dialog_search_title"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/dialog_search_address_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="address"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/dialog_search_title_textview"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/dialog_search_title_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/dialog_search_item_title"
+                android:textSize="28sp"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_search_title"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/dialog_search_address_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:padding="8dp"
-        android:hint="@string/activity_add_property_edittext_address"
-        android:autofillHints="name"
-        android:backgroundTint="@color/colorPrimary"
-        android:inputType="text"
-        app:layout_constraintTop_toTopOf="@id/dialog_search_address_textview"
-        app:layout_constraintStart_toEndOf="@id/dialog_search_address_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <EditText
+                android:id="@+id/dialog_search_title_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:padding="8dp"
+                android:hint="@string/activity_add_property_edittext_title"
+                android:autofillHints="name"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="text"
+                app:layout_constraintTop_toTopOf="@id/dialog_search_title_textview"
+                app:layout_constraintStart_toEndOf="@id/dialog_search_title_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/dialog_search_surface_min_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="surface (min)"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/dialog_search_address_textview"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/dialog_search_address_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/dialog_search_item_address"
+                android:textSize="28sp"
+                app:layout_constraintTop_toBottomOf="@id/dialog_search_title_textview"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/dialog_search_surface_min_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:padding="8dp"
-        android:hint="m²"
-        android:autofillHints="name"
-        android:backgroundTint="@color/colorPrimary"
-        android:inputType="number"
-        app:layout_constraintTop_toTopOf="@id/dialog_search_surface_min_textview"
-        app:layout_constraintStart_toEndOf="@id/dialog_search_surface_min_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <EditText
+                android:id="@+id/dialog_search_address_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:padding="8dp"
+                android:hint="@string/activity_add_property_edittext_address"
+                android:autofillHints="name"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="text"
+                app:layout_constraintTop_toTopOf="@id/dialog_search_address_textview"
+                app:layout_constraintStart_toEndOf="@id/dialog_search_address_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/dialog_search_surface_max_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="surface (max)"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/dialog_search_surface_min_textview"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/dialog_search_surface_min_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/dialog_search_item_surface"
+                android:textSize="28sp"
+                app:layout_constraintTop_toBottomOf="@id/dialog_search_address_textview"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/dialog_search_surface_max_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:padding="8dp"
-        android:hint="m²"
-        android:autofillHints="name"
-        android:backgroundTint="@color/colorPrimary"
-        android:inputType="number"
-        app:layout_constraintTop_toTopOf="@id/dialog_search_surface_max_textview"
-        app:layout_constraintStart_toEndOf="@id/dialog_search_surface_max_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <EditText
+                android:id="@+id/dialog_search_surface_min_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:padding="8dp"
+                android:hint="@string/dialog_search_surface"
+                android:autofillHints="name"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="number"
+                app:layout_constraintTop_toTopOf="@id/dialog_search_surface_min_textview"
+                app:layout_constraintStart_toEndOf="@id/dialog_search_surface_min_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/dialog_search_room_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="Room"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/dialog_search_surface_max_textview"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/dialog_search_surface_max_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/dialog_search_item_surface_max"
+                android:textSize="28sp"
+                app:layout_constraintTop_toBottomOf="@id/dialog_search_surface_min_textview"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/dialog_search_room_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:padding="8dp"
-        android:hint="number"
-        android:autofillHints="name"
-        android:backgroundTint="@color/colorPrimary"
-        android:inputType="number"
-        app:layout_constraintTop_toTopOf="@id/dialog_search_room_textview"
-        app:layout_constraintStart_toEndOf="@id/dialog_search_room_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <EditText
+                android:id="@+id/dialog_search_surface_max_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:padding="8dp"
+                android:hint="@string/dialog_search_surface"
+                android:autofillHints="name"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="number"
+                app:layout_constraintTop_toTopOf="@id/dialog_search_surface_max_textview"
+                app:layout_constraintStart_toEndOf="@id/dialog_search_surface_max_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/dialog_search_bathroom_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="Bathroom"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/dialog_search_room_textview"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/dialog_search_room_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/dialog_search_item_room"
+                android:textSize="28sp"
+                app:layout_constraintTop_toBottomOf="@id/dialog_search_surface_max_textview"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/dialog_search_bathroom_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:padding="8dp"
-        android:hint="number"
-        android:autofillHints="name"
-        android:backgroundTint="@color/colorPrimary"
-        android:inputType="number"
-        app:layout_constraintTop_toTopOf="@id/dialog_search_bathroom_textview"
-        app:layout_constraintStart_toEndOf="@id/dialog_search_bathroom_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <EditText
+                android:id="@+id/dialog_search_room_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:padding="8dp"
+                android:hint="@string/dialog_search_number"
+                android:autofillHints="name"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="number"
+                app:layout_constraintTop_toTopOf="@id/dialog_search_room_textview"
+                app:layout_constraintStart_toEndOf="@id/dialog_search_room_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/dialog_search_bedroom_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="Bedroom"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/dialog_search_bathroom_textview"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/dialog_search_bathroom_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/dialog_search_item_bathroom"
+                android:textSize="28sp"
+                app:layout_constraintTop_toBottomOf="@id/dialog_search_room_textview"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/dialog_search_bedroom_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:padding="8dp"
-        android:hint="number"
-        android:autofillHints="name"
-        android:backgroundTint="@color/colorPrimary"
-        android:inputType="number"
-        app:layout_constraintTop_toTopOf="@id/dialog_search_bedroom_textview"
-        app:layout_constraintStart_toEndOf="@id/dialog_search_bedroom_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <EditText
+                android:id="@+id/dialog_search_bathroom_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:padding="8dp"
+                android:hint="@string/dialog_search_number"
+                android:autofillHints="name"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="number"
+                app:layout_constraintTop_toTopOf="@id/dialog_search_bathroom_textview"
+                app:layout_constraintStart_toEndOf="@id/dialog_search_bathroom_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <Spinner
-        android:id="@+id/dialog_search_type_spinner"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:spinnerMode="dropdown"
-        android:prompt="@string/dialog_search_spinner_type_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_search_bedroom_textview"/>
+            <TextView
+                android:id="@+id/dialog_search_bedroom_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/dialog_search_item_bedroom"
+                android:textSize="28sp"
+                app:layout_constraintTop_toBottomOf="@id/dialog_search_bathroom_textview"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <Spinner
-        android:id="@+id/dialog_search_real_estate_agent_spinner"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_search_type_spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <EditText
+                android:id="@+id/dialog_search_bedroom_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:padding="8dp"
+                android:hint="@string/dialog_search_number"
+                android:autofillHints="name"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="number"
+                app:layout_constraintTop_toTopOf="@id/dialog_search_bedroom_textview"
+                app:layout_constraintStart_toEndOf="@id/dialog_search_bedroom_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/dialog_search_price_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="Price"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/dialog_search_real_estate_agent_spinner"
-        app:layout_constraintStart_toStartOf="parent" />
+            <Spinner
+                android:id="@+id/dialog_search_type_spinner"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="@color/colorPrimary"
+                android:popupBackground="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_search_bedroom_textview"/>
 
-    <EditText
-        android:id="@+id/dialog_search_price_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:padding="8dp"
-        android:hint="$$$"
-        android:autofillHints="name"
-        android:backgroundTint="@color/colorPrimary"
-        android:inputType="number"
-        app:layout_constraintTop_toTopOf="@id/dialog_search_price_textview"
-        app:layout_constraintStart_toEndOf="@id/dialog_search_price_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <Spinner
+                android:id="@+id/dialog_search_real_estate_agent_spinner"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="@color/colorPrimary"
+                android:popupBackground="@color/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_search_type_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:background="@color/spinner_bottom_line"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_search_price_edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                android:id="@+id/dialog_search_price_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/dialog_search_item_price"
+                android:textSize="28sp"
+                app:layout_constraintTop_toBottomOf="@id/dialog_search_real_estate_agent_spinner"
+                app:layout_constraintStart_toStartOf="parent" />
 
+            <EditText
+                android:id="@+id/dialog_search_price_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:padding="8dp"
+                android:hint="@string/dialog_search_price_dollar"
+                android:autofillHints="name"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="number"
+                app:layout_constraintTop_toTopOf="@id/dialog_search_price_textview"
+                app:layout_constraintStart_toEndOf="@id/dialog_search_price_textview"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="@color/spinner_bottom_line"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_search_price_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

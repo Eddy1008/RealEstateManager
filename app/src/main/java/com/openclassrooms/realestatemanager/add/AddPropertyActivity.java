@@ -221,7 +221,6 @@ public class AddPropertyActivity extends AppCompatActivity implements PointOfInt
     private AlertDialog getAddPropertyPhotoDialog() {
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this, R.style.Dialog);
 
-        alertBuilder.setTitle(getString(R.string.dialog_photo_title));
         alertBuilder.setView(R.layout.dialog_add_property_photo);
         alertBuilder.setPositiveButton(getString(R.string.dialog_add_picture_button), null);
         alertBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
