@@ -10,8 +10,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <permission android:name="com.openclassrooms.permission.READ"
-        android:protectionLevel="normal"/>
+    <permission
+        android:name="com.openclassrooms.permission.READ"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -27,6 +28,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".update.UpdatePropertyActivity"
             android:exported="true">
@@ -49,6 +51,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".simulator.SimulatorActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".main.MainActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
@@ -62,13 +71,14 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <provider
-            android:authorities="com.openclassrooms.realestatemanager.contentprovider.PropertyProvider"
             android:name=".contentprovider.PropertyProvider"
+            android:authorities="com.openclassrooms.realestatemanager.contentprovider.PropertyProvider"
             android:enabled="true"
             android:exported="true"
-            android:writePermission="com.openclassrooms.permission.READ"
-            android:readPermission="com.openclassrooms.permission.READ" />
+            android:readPermission="com.openclassrooms.permission.READ"
+            android:writePermission="com.openclassrooms.permission.READ" />
     </application>
 
 </manifest>

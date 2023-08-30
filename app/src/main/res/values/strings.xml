@@ -108,4 +108,17 @@
     <string name="dialog_add_property_select_picture_button">SELECT A PICTURE</string>
     <string name="dialog_add_picture">taken or selected picture</string>
     <string name="dialog_add_picture_description">photo description</string>
+    <string name="simulator">Simulator</string>
+    <string name="simulator_textview_title">Simulator</string>
+    <string name="simulator_amount_to_borrow">Amount to borrow</string>
+    <string name="simulator_number_of_monthly_payments">Number of monthly payments</string>
+    <string name="simulator_contribution_amount">Contribution amount</string>
+    <string name="simulator_estimate_button">Estimate</string>
+    <string name="simulator_textview_result">Result per month</string>
+    <string name="simulator_price">Property price</string>
+    <string name="simulator_textview_credit_cost">Credit cost</string>
+    <string name="simulator_textview_interest">Interest</string>
+    <string name="simulator_textview_year">Years of payment</string>
+    <string name="simulator_textview_difference">Missing sum</string>
+    <string name="simulator_missing_info">Missing info</string>
 </resources>

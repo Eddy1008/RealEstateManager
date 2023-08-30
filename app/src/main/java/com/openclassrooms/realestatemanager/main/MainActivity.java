@@ -27,6 +27,7 @@ import com.openclassrooms.realestatemanager.contentprovider.PropertyProvider;
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding;
 import com.openclassrooms.realestatemanager.model.PropertyType;
 import com.openclassrooms.realestatemanager.model.RealEstateAgent;
+import com.openclassrooms.realestatemanager.simulator.SimulatorActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -118,20 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set Localise Me Button !!
-        binding.navView.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                 if (Utils.isInternetConnectionAvailable(MainActivity.this)) {
-                    Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
-                 } else {
-                    Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
-                 }
-                return false;
-            }
-        });
-
-        // Set Hello You Button !!
+        // Set ContentProvider test button !!
         binding.navView.getMenu().getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
@@ -170,6 +158,28 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("TAG", "No data available.");
                 }
                  return false;
+            }
+        });
+
+        // Set isConnected Button !!
+        binding.navView.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                if (Utils.isInternetConnectionAvailable(MainActivity.this)) {
+                    Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
+
+        binding.navView.getMenu().getItem(3).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, SimulatorActivity.class);
+                startActivity(intent);
+                return false;
             }
         });
     }

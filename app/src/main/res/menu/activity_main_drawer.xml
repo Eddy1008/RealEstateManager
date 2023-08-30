@@ -7,11 +7,15 @@
         android:icon="@drawable/ic_baseline_post_add_24"
         android:title="@string/menu_add_property" />
     <item
-        android:id="@+id/nav_logout"
+        android:id="@+id/nav_content_provider_test"
         android:icon="@drawable/ic_baseline_share_24"
         android:title="@string/content_provider_test" />
     <item
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_connectivity_manager_test"
         android:icon="@drawable/ic_baseline_network_check_24"
         android:title="@string/connectivity_test" />
+    <item
+        android:id="@+id/nav_simulator"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="@string/simulator" />
 </menu>
